@@ -1,0 +1,38 @@
+---
+title: "ProyectoFinal"
+format: html
+editor: visual
+---
+
+# Proyecto Final
+
+### Code & Data Bootcamp: Git, Bash y R
+
+Autores: Samuel Márquez, Emiliano Almaráz, Emiliano Sánchez, Gerónimo Chávez.
+
+El proyecto utiliza los datos del archivo "wcmatches.csv", disponible en TidyTuesday: [Link al repositorio en Github](https://github.com/rfordatascience/tidytuesday/tree/main/data/2022/2022-11-29).
+
+Este conjunto de datos contiene información de todos los partidos de todos los mundiales desde Uruguay 1930 hasta Rusia 2018.
+
+```{r}
+Partidos = read.csv("wcmatches.csv")
+head(Partidos)
+```
+
+Las columnas con las que cuenta el data-frame son:
+
+- year: Año en el que se jugó el mundial.
+- country: País donde se jugó el mundial.
+- city: Ciudad donde se jugó el partido.
+- stage: Fase en la que se realizó el partido. Si fue en fase de grupos, indica el grupo.
+- home_team: Equipo local.
+- away_team: Equipo visitante.
+- home_score: Goles anotados por el equipo local.
+- away_score: Goles anotados por el equipo visitante.
+- outcome: (H) si ganó el equipo local, (A) si ganó el equipo visitante, (D) en caso de empate.
+- win_conditions: Indica si el partido se ganó en tiempos extras (AET) o en penales.
+- winning_team: Nombre del equipo ganador. En caso de empate NA.
+- losing_team: Nombre del equipo perdedor. En caso de empate NA.
+- date: Fecha en que se jugó el partido en formato AAAA/MM/DD.
+- month: Mes en el que se jugó el partido.
+- dayofweek: Día de la semana en que se jugó el partido.
