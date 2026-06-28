@@ -156,6 +156,61 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="distribución-de-datos-y-relaciones-históricas" class="level2">
 <h2 class="anchored" data-anchor-id="distribución-de-datos-y-relaciones-históricas">Distribución de Datos y Relaciones Históricas</h2>
 <p>Ajustamos el formato de las fechas y ordenamos los días de la semana de manera cronológica para evitar errores en futuras visualizaciones. Aquí incluimos la definición de la variable de los goles totales por partido.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Transformación de variables temporales y creación de nuevas</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>Partidos<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(Partidos<span class="sc">$</span>date, <span class="at">format =</span> <span class="st">"%Y/%m/%d"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>dias_ordenados <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Monday"</span>, <span class="st">"Tuesday"</span>, <span class="st">"Wednesday"</span>, <span class="st">"Thursday"</span>, <span class="st">"Friday"</span>, <span class="st">"Saturday"</span>, <span class="st">"Sunday"</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>Partidos<span class="sc">$</span>dayofweek <span class="ot">&lt;-</span> <span class="fu">factor</span>(Partidos<span class="sc">$</span>dayofweek, <span class="at">levels =</span> dias_ordenados)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>Partidos<span class="sc">$</span>goles_totales <span class="ot">&lt;-</span> Partidos<span class="sc">$</span>home_score <span class="sc">+</span> Partidos<span class="sc">$</span>away_score</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="matriz-de-dispersión" class="level3">
+<h3 class="anchored" data-anchor-id="matriz-de-dispersión">Matriz de dispersión</h3>
+<p>La siguiente matriz de dispersión (Pair Plot) presenta un análisis estructurado de las cuatro variables numéricas principales de nuestro conjunto de datos: el año del mundial, los goles anotados por el equipo local y los goles del equipo visitante, y los goles totales por partido.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>datos_numericos <span class="ot">&lt;-</span> Partidos[, <span class="fu">c</span>(<span class="st">"year"</span>, <span class="st">"home_score"</span>, <span class="st">"away_score"</span>, <span class="st">"goles_totales"</span>)]</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(datos_numericos) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Año del Mundial"</span>, <span class="st">"Goles Local"</span>, <span class="st">"Goles Visitante"</span>, <span class="st">"Goles Totales"</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>matriz_correlacion <span class="ot">&lt;-</span> <span class="fu">ggpairs</span>(</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  datos_numericos,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">upper =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="fu">wrap</span>(<span class="st">"smooth"</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">color =</span> <span class="st">"#2c3e50"</span>)), </span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">lower =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="fu">wrap</span>(<span class="st">"smooth"</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">color =</span> <span class="st">"#2c3e50"</span>)), </span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">diag =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="fu">wrap</span>(<span class="st">"densityDiag"</span>, <span class="at">fill =</span> <span class="st">"#16a085"</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>)),</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"Distribución de datos y relación entre año y goles en las ediciones de los mundiales (1930-2018)"</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">15</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">strip.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"#ecf0f1"</span>, <span class="at">color =</span> <span class="st">"white"</span>),</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">10</span>)</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>matriz_correlacion</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="ProyectoFinal_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="interpretación-de-la-matriz" class="level3">
+<h3 class="anchored" data-anchor-id="interpretación-de-la-matriz">Interpretación de la matriz</h3>
+<p>El análisis se divide en dos componentes visuales y estadísticos:</p>
+<ol type="1">
+<li>La Diagonal Principal (Distribuciones Individuales) Cuando una variable se cruza consigo misma, el sistema proyecta una curva de densidad, estas curvas muestran dónde se concentra el mayor volumen histórico de cada variable. En el caso de los goles locales y visitantes, el pico se encuentra entre 0 y 2 anotaciones. Consecuentemente, la curva de “Goles Totales” encuentra su punto más alto alrededor de los 2 a 3 goles por partido, demostrando que los marcadores abultados son eventos estadísticamente atípicos.</li>
+</ol>
+<p>Interpretación del Eje Y (Valores decimales): Los números en el eje vertical de estas gráficas (arriba a la izquierda), representan la densidad de probabilidad. Matemáticamente, el área total debajo de una curva de densidad suma exactamente 1 (el 100% de los datos), por lo que el eje se ajusta a fracciones decimales minúsculas para mantener la proporción frente a magnitudes más grandes en el eje horizontal.</p>
+<ol start="2" type="1">
+<li>Los Cruces Fuera de la Diagonal (Relaciones Bivariadas) El resto de los cuadrantes cruza dos variables distintas. Cada punto representa un partido específico y la línea azul proyecta la tendencia general.</li>
+</ol>
+<p>Evolución temporal de los goles: En la primera columna y primera fila, al cruzar el “Año del Mundial” con cualquiera de las métricas de goles (Local, Visitante o Totales), se observa una inclinación descendente en la línea azul. Esto muestra que el promedio de goles por partido ha ido disminuyendo progresivamente desde 1930, apuntando a un fútbol históricamente más táctico y defensivo.</p>
+<p>Relaciones estructurales y de independencia: El cruce entre “Goles Local” y “Goles Visitante” muestra una nube dispersa y una línea plana, indicando que los goles de un equipo no predicen los del otro (son independientes). Los cruces que involucran los “Goles Totales” frente a los locales o visitantes, la línea azul tiene una fuerte pendiente ascendente; esto es por que el total está directamente compuesto por la suma de ambos factores.</p>
+</section>
 </section>
 </section>
 

@@ -62,6 +62,12 @@ La siguiente matriz de dispersión (Pair Plot) presenta un análisis estructurad
 ```{r}
 #| message: false
 #| warning: false
+#| fig-width: 10
+#| fig-height: 10
+
+library(ggplot2)
+library(GGally)
+
 datos_numericos <- Partidos[, c("year", "home_score", "away_score", "goles_totales")]
 colnames(datos_numericos) <- c("Año del Mundial", "Goles Local", "Goles Visitante", "Goles Totales")
 matriz_correlacion <- ggpairs(
