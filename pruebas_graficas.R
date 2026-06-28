@@ -54,8 +54,8 @@ grafica_partidos
 # Distribución de datos, matriz de correlación
 
 # Filtracion de los datos y renombramiento pa q salgan en español al imprimir
-datos_numericos <- Partidos[, c("year", "home_score", "away_score")]
-colnames(datos_numericos) <- c("Año del Mundial", "Goles Local", "Goles Visitante")
+datos_numericos <- Partidos[, c("year", "home_score", "away_score", "goles_totales")]
+colnames(datos_numericos) <- c("Año del Mundial", "Goles Local", "Goles Visitante", "Goles Totales")
 
 # impresión de la matriz de correlación
 matriz_correlacion <- ggpairs(
@@ -80,5 +80,6 @@ matriz_correlacion
 # usamos la funcion y calculamos la matriz matemática y redondeamos a 3 decimales
 matriz_pearson <- round(cor(datos_numericos), 3)
 # Imprimimos la tabla en la consola
+
 print("Coeficientes de Correlación de Pearson:")
 matriz_pearson
