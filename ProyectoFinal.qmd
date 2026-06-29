@@ -8,14 +8,14 @@ editor: visual
 
 ### Code & Data Bootcamp: Git, Bash y R
 
-Autores: Samuel Márquez, Emiliano Almaráz, Emiliano Sánchez, Gerónimo Chávez.
+Autores: Samuel Márquez, Emiliano Almaraz, Emiliano Sánchez, Gerónimo Chávez.
 
 El proyecto utiliza los datos del archivo "wcmatches.csv", disponible en TidyTuesday: [Link al repositorio en Github](https://github.com/rfordatascience/tidytuesday/tree/main/data/2022/2022-11-29).
 
 Este conjunto de datos contiene información de todos los partidos de todos los mundiales desde Uruguay 1930 hasta Rusia 2018.
 
 ```{r}
-Partidos = read.csv("wcmatches.csv")
+Partidos = read.csv("data/wcmatches.csv")
 head(Partidos)
 ```
 
@@ -40,12 +40,17 @@ Las columnas con las que cuenta el data-frame son:
 Además, creamos la variable "goles_totales" para poder estudiar correctamente el numero de goles totales por partido.
 
 ### Tipos de datos analizados
+
+```{r}
 str(Partidos)
+```
 
 El dataset combina variables numéricas discretas (como los goles y años), variables categóricas de texto (como los países y fases) y variables temporales, lo que permite un análisis transversal de los mundiales.
 
 ## Distribución de Datos y Relaciones Históricas
+
 Ajustamos el formato de las fechas y ordenamos los días de la semana de manera cronológica para evitar errores en futuras visualizaciones. Aquí incluimos la definición de la variable de los goles totales por partido.
+
 ```{r}
 # Transformación de variables temporales y creación de nuevas
 Partidos$date <- as.Date(Partidos$date, format = "%Y/%m/%d")
@@ -57,6 +62,7 @@ Partidos$goles_totales <- Partidos$home_score + Partidos$away_score
 ```
 
 ### Matriz de dispersión
+
 La siguiente matriz de dispersión (Pair Plot) presenta un análisis estructurado de las cuatro variables numéricas principales de nuestro conjunto de datos: el año del mundial, los goles anotados por el equipo local y los goles del equipo visitante, y los goles totales por partido.
 
 ```{r}
@@ -86,21 +92,17 @@ matriz_correlacion <- ggpairs(
   )
 matriz_correlacion
 ```
+
 ### Interpretación de la matriz
 
 El análisis se divide en dos componentes visuales y estadísticos:
 
-1. La Diagonal Principal (Distribuciones Individuales)
-Cuando una variable se cruza consigo misma, el sistema proyecta una curva de densidad, estas curvas muestran dónde se concentra el mayor volumen histórico de cada variable. En el caso de los goles locales y visitantes, el pico se encuentra entre 0 y 2 anotaciones. Consecuentemente, la curva de "Goles Totales" encuentra su punto más alto alrededor de los 2 a 3 goles por partido, demostrando que los marcadores abultados son eventos estadísticamente atípicos.
+1.  La Diagonal Principal (Distribuciones Individuales) Cuando una variable se cruza consigo misma, el sistema proyecta una curva de densidad, estas curvas muestran dónde se concentra el mayor volumen histórico de cada variable. En el caso de los goles locales y visitantes, el pico se encuentra entre 0 y 2 anotaciones. Consecuentemente, la curva de "Goles Totales" encuentra su punto más alto alrededor de los 2 a 3 goles por partido, demostrando que los marcadores abultados son eventos estadísticamente atípicos.
 
 Interpretación del Eje Y (Valores decimales): Los números en el eje vertical de estas gráficas (arriba a la izquierda), representan la densidad de probabilidad. Matemáticamente, el área total debajo de una curva de densidad suma exactamente 1 (el 100% de los datos), por lo que el eje se ajusta a fracciones decimales minúsculas para mantener la proporción frente a magnitudes más grandes en el eje horizontal.
 
-2. Los Cruces Fuera de la Diagonal (Relaciones Bivariadas)
-El resto de los cuadrantes cruza dos variables distintas. Cada punto representa un partido específico y la línea azul proyecta la tendencia general.
+2.  Los Cruces Fuera de la Diagonal (Relaciones Bivariadas) El resto de los cuadrantes cruza dos variables distintas. Cada punto representa un partido específico y la línea azul proyecta la tendencia general.
 
 Evolución temporal de los goles: En la primera columna y primera fila, al cruzar el "Año del Mundial" con cualquiera de las métricas de goles (Local, Visitante o Totales), se observa una inclinación descendente en la línea azul. Esto muestra que el promedio de goles por partido ha ido disminuyendo progresivamente desde 1930, apuntando a un fútbol históricamente más táctico y defensivo.
 
-Relaciones estructurales y de independencia: El cruce entre "Goles Local" y "Goles Visitante" muestra una nube dispersa y una línea plana, indicando que los goles de un equipo no predicen los del otro (son independientes). 
-Los cruces que involucran los "Goles Totales" frente a los locales o visitantes, la línea azul tiene una fuerte pendiente ascendente; esto es por que el total está directamente compuesto por la suma de ambos factores.
-
-
+Relaciones estructurales y de independencia: El cruce entre "Goles Local" y "Goles Visitante" muestra una nube dispersa y una línea plana, indicando que los goles de un equipo no predicen los del otro (son independientes). Los cruces que involucran los "Goles Totales" frente a los locales o visitantes, la línea azul tiene una fuerte pendiente ascendente; esto es por que el total está directamente compuesto por la suma de ambos factores.

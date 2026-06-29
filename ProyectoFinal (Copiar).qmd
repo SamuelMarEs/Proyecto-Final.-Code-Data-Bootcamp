@@ -1,0 +1,126 @@
+---
+title: "ProyectoFinal"
+format: html
+editor: visual
+---
+
+# Proyecto Final
+
+### Code & Data Bootcamp: Git, Bash y R
+
+Autores: Samuel Márquez, Emiliano Almaraz, Emiliano Sánchez, Gerónimo Chávez.
+
+# Introducción
+
+La Copa Mundial de la FIFA es uno de los eventos deportivos más importantes a nivel internacional, reuniendo a selecciones nacionales de distintos continentes desde 1930. A lo largo de sus ediciones se han registrado miles de datos relacionados con los partidos disputados, como los equipos participantes, las sedes, las fases del torneo, los resultados obtenidos y las fechas en que se llevaron a cabo.
+
+En este proyecto se analiza un conjunto de datos que contiene información de los partidos oficiales de las Copas del Mundo de la FIFA disputadas entre 1930 y 2018. El objetivo es aplicar técnicas de manipulación, exploración y visualización de datos utilizando R y Quarto para identificar patrones y responder preguntas de investigación relacionadas con el desempeño de los equipos, la distribución de goles y el desarrollo histórico de los torneos.
+
+Para ello, primero se realiza una descripción del conjunto de datos y un proceso de preparación que incluye la transformación de variables y la creación de nuevas características. Posteriormente, se desarrollan diferentes análisis estadísticos y visualizaciones que permiten responder las preguntas planteadas y obtener una mejor comprensión del comportamiento de los datos.
+
+# Descripción del conjunto de datos
+
+## Fuente de los datos
+
+El proyecto utiliza los datos del archivo "wcmatches.csv", disponible en TidyTuesday: [Link al repositorio en Github](https://github.com/rfordatascience/tidytuesday/tree/main/data/2022/2022-11-29).
+
+El conjunto de datos utilizado en este proyecto contiene información histórica de los partidos disputados en la Copa Mundial de la FIFA entre 1930 y 2018. La base de datos fue obtenida del repositorio de TidyTuesday, el cual recopila conjuntos de datos públicos para la realización de ejercicios de análisis y visualización de datos. Cada registro representa un partido oficial e incluye información relacionada con la edición del torneo, la sede, los equipos participantes, el marcador final y otras variables de interés.
+
+## Carga del conjunto de datos
+
+```{r}
+Partidos <- read.csv("data/wcmatches.csv")
+```
+
+El archivo fue importado a R mediante la función read.csv(), almacenándose en el objeto **Partidos** el cual sera utilizado durante todo el analisis
+
+## Dimensiones del conjunto de datos
+
+```{r}
+dim(Partidos)
+```
+
+El conjunto de datos contiene **900 observaciones** y **15 variables**. Cada observación representa un partido oficial correspondiente a alguna edición de la Copa Mundial de la FIFA.
+
+## Variables del conjunto de datos
+
+```{r}
+head(Partidos)
+```
+
+Las columnas con las que cuenta el data-frame son:
+
+Las variables incluidas en el conjunto de datos son las siguientes:
+
+- **year** *(int)*: Año en el que se disputó la edición de la Copa Mundial de la FIFA.
+
+- **country** *(chr)*: País anfitrión donde se celebró el Mundial.
+
+- **city** *(chr)*: Ciudad en la que se disputó el partido.
+
+- **stage** *(chr)*: Fase del torneo en la que se jugó el partido. En la fase de grupos también indica el grupo correspondiente.
+
+- **home_team** *(chr)*: Selección considerada como equipo local.
+
+- **away_team** *(chr)*: Selección considerada como equipo visitante.
+
+- **home_score** *(int)*: Número de goles anotados por el equipo local.
+
+- **away_score** *(int)*: Número de goles anotados por el equipo visitante.
+
+- **outcome** *(chr)*: Resultado del encuentro, donde **H** indica victoria del equipo local, **A** victoria del equipo visitante y **D** empate.
+
+- **win_conditions** *(chr)*: Indica si el partido se definió en tiempo extra (**AET**) o mediante tanda de penales.
+
+- **winning_team** *(chr)*: Nombre del equipo ganador. En caso de empate, el valor es **NA**.
+
+- **losing_team** *(chr)*: Nombre del equipo perdedor. En caso de empate, el valor es **NA**.
+
+- **date** *(Date)*: Fecha en la que se disputó el partido (**AA/MM/DD**).
+
+- **month** *(chr)*: Mes en el que se disputó el encuentro.
+
+- **dayofweek** *(chr)*: Día de la semana en que se jugó el partido.
+
+Una vez descritas las principales características del conjunto de datos, se procede a realizar su preparación y transformación con el fin de garantizar que la información se encuentre en el formato adecuado para el análisis y la generación de visualizaciones.
+
+# Preparación y limpieza de los datos
+
+Antes de realizar el análisis exploratorio, fue necesario preparar el conjunto de datos para asegurar que las variables estuvieran en el formato adecuado y facilitar su procesamiento. Esta etapa incluyó la conversión de tipos de datos y la creación de una nueva variable que resume la cantidad total de goles anotados en cada partido.
+
+## Conversión de tipos de datos
+
+```{r}
+Partidos$date <- as.Date(Partidos$date)
+```
+
+La variable **date** fue convertida al tipo **Date**, lo que permite manipularla correctamente para realizar análisis temporales y facilita su interpretación dentro del conjunto de datos.
+
+## Trasformacion de nuevas variables
+
+```{r}
+dias_ordenados <- c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
+Partidos$dayofweek <- factor(Partidos$dayofweek, levels = dias_ordenados)
+```
+
+La variable **dayofweek** fue convertida a un **factor ordenado**, estableciendo el orden cronológico de los días de la semana (de lunes a domingo). Esta transformación garantiza que, al generar tablas y visualizaciones, los días aparezcan en una secuencia lógica y no en orden alfabético, facilitando una interpretación más clara de los resultados.
+
+## Creación de nuevas variables
+
+Se creó la variable **goles_totales**, la cual corresponde a la suma de los goles anotados por el equipo local y el equipo visitante en cada partido. Esta variable simplifica el análisis de la producción ofensiva durante las distintas ediciones de la Copa Mundial.
+
+```{r}
+Partidos$goles_totales <- Partidos$home_score + Partidos$away_score
+
+head(Partidos$goles_totales)
+```
+
+La creación de esta variable permite analizar de manera directa la cantidad total de goles por partido, sin necesidad de calcularla repetidamente durante las distintas etapas del análisis. Además, facilita la elaboración de visualizaciones y comparaciones entre las diferentes ediciones de la Copa Mundial.
+
+## Verificación de la estructura del conjunto de datos
+
+```{r}
+str(Partidos)
+```
+
+Una vez realizadas las transformaciones, se verificó nuevamente la estructura del conjunto de datos para confirmar que los cambios se aplicaron correctamente. En esta versión final, la variable **date** se encuentra almacenada como tipo **Date** y se incorpora la nueva variable **goles_totales**, la cual será utilizada en los análisis posteriores.
