@@ -1,0 +1,267 @@
+---
+title: "Análisis Exploratorio: Copas Mundiales de la FIFA (1930-2018)"
+author: "Análisis de wcmatches.csv"
+date: "29 de junio de 2026"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    theme: flatly
+    code_folding: show
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+library(dplyr)
+library(ggplot2)
+library(GGally)
+```
+
+## Carga y preparación de datos
+
+```{r carga-datos}
+Partidos <- read.csv("wcmatches.csv")
+
+# Convertir la fecha a formato Date
+# OJO: en este csv las fechas vienen como "1930-07-13" (con guiones)
+Partidos$date <- as.Date(Partidos$date, format = "%Y-%m-%d")
+
+# Ordenar los días de la semana cronológicamente y no alfabéticamente
+dias_ordenados <- c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
+Partidos$dayofweek <- factor(Partidos$dayofweek, levels = dias_ordenados)
+
+# Variable de goles totales por partido
+Partidos$goles_totales <- Partidos$home_score + Partidos$away_score
+```
+
+## Gráficas generales
+
+### Distribución de goles totales por partido
+
+```{r grafica-goles}
+grafica_goles <- ggplot(Partidos, aes(x = goles_totales)) +
+  geom_histogram(binwidth = 1, fill = "darkgreen", color = "white", alpha = 0.9) +
+  labs(
+    title = "Distribución de Goles Totales por Partido (1930 - 2018)",
+    x = "Cantidad de Goles en un Partido",
+    y = "Número de Partidos"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 14, hjust = 0.5),
+    panel.grid.minor = element_blank()
+  )
+grafica_goles
+```
+
+La mayoría de los partidos terminan con un total de 2 a 3 goles, formando una distribución asimétrica hacia la derecha: hay muchos partidos de bajo marcador y pocos partidos con goleadas (6, 7 u 8 goles), que son la excepción.
+
+### Número de partidos jugados por edición
+
+```{r grafica-partidos}
+grafica_partidos <- Partidos %>%
+  count(year) %>%
+  ggplot(aes(x = year, y = n)) +
+  geom_line(color = "turquoise", linewidth = 1) +
+  geom_point(color = "darkblue", size = 2) +
+  labs(
+    title = "Número de Partidos Jugados por edición",
+    x = "Año del Mundial",
+    y = "Cantidad de Partidos"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 14, hjust = 0.5),
+    panel.grid.minor = element_blank()
+  )
+grafica_partidos
+```
+
+El número de partidos por edición ha crecido junto con la cantidad de selecciones participantes, pasando de torneos pequeños en 1930 a los 64 partidos que se juegan desde que el formato se expandió a 32 equipos.
+
+## Matriz de correlación (GGally)
+
+```{r matriz-correlacion, fig.width=9, fig.height=9}
+datos_numericos <- Partidos[, c("year", "home_score", "away_score", "goles_totales")]
+colnames(datos_numericos) <- c("Año del Mundial", "Goles Local", "Goles Visitante", "Goles Totales")
+
+matriz_correlacion <- ggpairs(
+  datos_numericos,
+  upper = list(continuous = wrap("smooth", alpha = 0.3, color = "#2c3e50")),
+  lower = list(continuous = wrap("smooth", alpha = 0.3, color = "#2c3e50")),
+  diag = list(continuous = wrap("densityDiag", fill = "#16a085", alpha = 0.6)),
+  title = "Distribución de datos y relación entre año y goles en las ediciones de los mundiales (1930-2018)"
+) +
+  theme_minimal(base_size = 12) +
+  theme(
+    plot.title = element_text(face = "bold", size = 15, hjust = 0.5),
+    strip.background = element_rect(fill = "#ecf0f1", color = "white"),
+    strip.text = element_text(face = "bold", size = 10)
+  )
+matriz_correlacion
+```
+
+```{r tabla-pearson}
+matriz_pearson <- round(cor(datos_numericos), 3)
+matriz_pearson
+```
+
+Los coeficientes de Pearson confirman que el año del Mundial tiene una correlación negativa con los goles (a más reciente la edición, menos goles en promedio), mientras que los goles del local y del visitante se relacionan de forma moderada con el total de goles, como es de esperarse al ser sus componentes directos.
+
+---
+
+## Preguntas del análisis
+
+### 1. ¿Cómo ha evolucionado la cantidad promedio de goles por partido entre 1930 y 2018?
+
+**Variables:** `year`, `goles_totales`
+
+```{r grafica-1}
+goles_por_anio <- Partidos %>%
+  group_by(year) %>%
+  summarise(promedio_goles = mean(goles_totales), .groups = "drop")
+
+ggplot(goles_por_anio, aes(x = year, y = promedio_goles)) +
+  geom_line(color = "steelblue", linewidth = 1) +
+  geom_point(color = "steelblue", size = 2) +
+  labs(
+    title = "Promedio de goles por partido en cada Mundial (1930-2018)",
+    x = "Año del Mundial",
+    y = "Promedio de goles por partido"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 14, hjust = 0.5),
+    panel.grid.minor = element_blank()
+  )
+```
+
+**Explicación:** El promedio de goles por partido no ha sido constante: se observan picos muy altos en las primeras ediciones (1930-1950), con valores que superan los 4 goles por partido, y una tendencia general a la baja desde entonces. Desde los años 90 el promedio se estabiliza entre 2.5 y 3 goles por partido, lo que coincide con cambios tácticos y reglamentarios en el fútbol moderno frente a los esquemas más ofensivos de mediados del siglo XX.
+
+### 2. ¿Qué fases del torneo presentan una mayor cantidad promedio de goles?
+
+**Variables:** `stage`, `goles_totales`
+
+```{r grafica-2}
+Partidos <- Partidos %>%
+  mutate(stage_agrupado = ifelse(
+    grepl("^Group", trimws(stage)),
+    "Fase de grupos",
+    trimws(stage)
+  ))
+
+goles_por_fase <- Partidos %>%
+  group_by(stage_agrupado) %>%
+  summarise(promedio_goles = mean(goles_totales), .groups = "drop") %>%
+  arrange(desc(promedio_goles))
+
+ggplot(goles_por_fase,
+       aes(x = reorder(stage_agrupado, promedio_goles), y = promedio_goles)) +
+  geom_col(fill = "darkorange") +
+  coord_flip() +
+  labs(
+    title = "Promedio de goles por partido según fase del torneo",
+    x = "Fase del torneo",
+    y = "Promedio de goles por partido"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 14, hjust = 0.5),
+    panel.grid.minor = element_blank()
+  )
+```
+
+**Explicación:** Las fases más avanzadas y decisivas del torneo (finales, semifinales y el partido por el tercer lugar) muestran promedios de goles más altos que la fase de grupos. Esto puede explicarse porque en estas instancias se enfrentan selecciones de mayor nivel ofensivo y algunos partidos se definen en tiempo extra, lo que añade goles. La fase de grupos presenta el promedio más bajo, posiblemente por el carácter más conservador de equipos que buscan asegurar puntos antes de arriesgar.
+
+### 3. ¿Con qué frecuencia los partidos requieren tiempo extra o penales?
+
+**Variable:** `win_conditions`
+
+```{r grafica-3}
+condiciones <- Partidos %>%
+  mutate(condicion = case_when(
+    win_conditions == "" | is.na(win_conditions) ~ "Tiempo regular",
+    grepl("penalties", win_conditions, ignore.case = TRUE) ~ "Penales",
+    grepl("AET", win_conditions, ignore.case = TRUE) ~ "Tiempo extra (AET)",
+    TRUE ~ "Otro"
+  )) %>%
+  count(condicion) %>%
+  mutate(porcentaje = round(100 * n / sum(n), 1))
+
+ggplot(condiciones, aes(x = reorder(condicion, n), y = n, fill = condicion)) +
+  geom_col(show.legend = FALSE) +
+  geom_text(aes(label = paste0(n, " (", porcentaje, "%)")), hjust = -0.1) +
+  coord_flip() +
+  labs(
+    title = "Frecuencia de partidos según cómo se definieron",
+    x = "Condición de finalización",
+    y = "Número de partidos"
+  ) +
+  theme_minimal() +
+  expand_limits(y = max(condiciones$n) * 1.15) +
+  theme(
+    plot.title = element_text(face = "bold", size = 14, hjust = 0.5),
+    panel.grid.minor = element_blank()
+  )
+```
+
+**Explicación:** La gran mayoría de los partidos (más del 90%) se resuelven en tiempo regular. Los partidos con tiempo extra son una minoría, y dentro de esos solo una fracción aún menor termina en penales. Esto es consistente con la estructura del torneo: el tiempo extra y los penales solo son posibles en partidos de eliminación directa, mientras que la fase de grupos, que concentra más de la mitad de los partidos, siempre se resuelve en 90 minutos.
+
+### 4. ¿Los equipos designados como locales obtienen mejores resultados que los visitantes?
+
+**Variable:** `outcome`
+
+```{r grafica-4}
+resultados <- Partidos %>%
+  mutate(resultado = case_when(
+    outcome == "H" ~ "Gana local",
+    outcome == "A" ~ "Gana visitante",
+    outcome == "D" ~ "Empate",
+    TRUE ~ "Otro"
+  )) %>%
+  count(resultado) %>%
+  mutate(porcentaje = round(100 * n / sum(n), 1))
+
+ggplot(resultados, aes(x = reorder(resultado, n), y = n, fill = resultado)) +
+  geom_col(show.legend = FALSE) +
+  geom_text(aes(label = paste0(n, " (", porcentaje, "%)")), vjust = -0.4) +
+  labs(
+    title = "Resultado de los partidos: local vs. visitante",
+    x = "Resultado",
+    y = "Número de partidos"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 14, hjust = 0.5),
+    panel.grid.minor = element_blank()
+  )
+```
+
+**Explicación:** Los equipos designados como "locales" en el dataset ganan en aproximadamente la mitad de los partidos, una proporción más alta que los visitantes y que los empates. Es importante aclarar que en el Mundial el concepto de "local" no siempre equivale a jugar en casa (salvo para el país anfitrión); suele reflejar el orden en que se registró el partido. Aun así, el patrón sugiere una ligera ventaja asociada a esa designación.
+
+### 5. ¿Qué sedes han albergado la mayor cantidad de encuentros mundialistas?
+
+**Variables:** `city`, `country`
+
+```{r grafica-5}
+top_sedes <- Partidos %>%
+  mutate(sede = paste0(city, " (", country, ")")) %>%
+  count(sede, sort = TRUE) %>%
+  slice_head(n = 10)
+
+ggplot(top_sedes, aes(x = reorder(sede, n), y = n)) +
+  geom_col(fill = "seagreen") +
+  coord_flip() +
+  labs(
+    title = "Top 10 sedes con más partidos mundialistas",
+    x = "Sede (ciudad, país)",
+    y = "Número de partidos"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 14, hjust = 0.5),
+    panel.grid.minor = element_blank()
+  )
+```
+
+**Explicación:** La Ciudad de México lidera como la sede con más partidos mundialistas en la historia, resultado directo de haber albergado dos ediciones completas del torneo (1970 y 1986). Le siguen ciudades como Montevideo (sede de la primera Copa del Mundo en 1930) y Guadalajara, también beneficiada por las dos ediciones mexicanas. El ranking refleja sobre todo qué países han sido anfitriones en más de una ocasión, más que un patrón relacionado con el desempeño futbolístico de esas sedes.
