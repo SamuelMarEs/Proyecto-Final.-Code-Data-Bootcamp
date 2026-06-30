@@ -388,8 +388,7 @@ ggplot(top_sedes, aes(x = reorder(sede, n), y = n)) +
   theme_minimal() +
   theme(
     plot.title = element_text(face = "bold", size = 14, hjust = 0.5),
-    panel.grid.minor = element_blank()
-  )
+    panel.grid.minor = element_blank())
 ```
 
 **Explicación:** La Ciudad de México lidera como la sede con más partidos mundialistas en la historia, resultado directo de haber albergado dos ediciones completas del torneo (1970 y 1986). Le siguen ciudades como Montevideo (sede de la primera Copa del Mundo en 1930) y Guadalajara, también beneficiada por las dos ediciones mexicanas. El ranking refleja sobre todo qué países han sido anfitriones en más de una ocasión, más que un patrón relacionado con el desempeño futbolístico de esas sedes.

@@ -23,7 +23,8 @@ library(GGally)
 ## Carga y preparación de datos
 
 ```{r carga-datos}
-Partidos <- read.csv("wcmatches.csv")
+
+Partidos <- read.csv("data/wcmatches.csv")
 
 # Convertir la fecha a formato Date
 # OJO: en este csv las fechas vienen como "1930-07-13" (con guiones)
@@ -54,6 +55,7 @@ grafica_goles <- ggplot(Partidos, aes(x = goles_totales)) +
     plot.title = element_text(face = "bold", size = 14, hjust = 0.5),
     panel.grid.minor = element_blank()
   )
+
 grafica_goles
 ```
 

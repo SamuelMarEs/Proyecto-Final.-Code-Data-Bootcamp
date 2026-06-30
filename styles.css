@@ -1,3 +1,126 @@
-p {
-  text-align: justify;
+/*Fondo*/
+body{
+    background-image: url("figures/Fondo.jpeg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+/*Capa oscura (Mejora la lectura)*/
+body::before{
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.35);
+    z-index: -1;
+}
+
+/*Formato para el contenido*/
+main{
+
+    max-width: 1100px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    padding: 45px;
+    background: rgba(255,255,255,.75);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-radius: 25px;
+    box-shadow: 0 12px 35px rgba(0,0,0,.25);
+}
+
+
+/*Formato para el texto*/
+p{
+    text-align: justify;
+    line-height: 1.8;
+    font-size: 17px;
+    color: #222;
+}
+
+
+/*Formato para los titulos*/
+h1{
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: 35px;
+}
+
+h2{
+    margin-top: 45px;
+    margin-bottom: 20px;
+    padding-left: 12px;
+    border-left: 6px solid #009688;
+    font-weight: 700;
+}
+
+
+/*Formato para las tablas*/
+table{
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+/*Formato para imagenes y graficas*/
+img{
+    border-radius: 15px;
+    box-shadow: 0 6px 20px rgba(0,0,0,.20);
+}
+
+/*Formato para el codigo*/
+pre{
+    border-radius: 15px;
+}
+
+code{
+    border-radius: 6px;
+}
+
+
+/*Formato para el indice*/
+#TOC{
+    background: rgba(255,255,255,.75);  
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-radius: 18px;
+    padding: 18px;
+    box-shadow: 0 8px 20px rgba(0,0,0,.18);
+}
+
+#TOC a{
+    color: #1f1f1f;
+    text-decoration: none;
+}
+
+#TOC a:hover{
+    color: #009688;
+}
+
+#Formato para enlaces
+a{
+    color: #00796B;
+}
+
+a:hover{
+    color: #004D40;
+}
+
+#Formato para el codigo
+.sourceCode{
+    border-radius: 15px;
+}
+
+/*Para adapatarse a la pantalla donde se visualice*/
+@media (max-width: 992px){
+
+    main{
+        padding: 25px;
+        margin: 15px;
+    }
+
+    p{
+        font-size:16px;
+    }
+
 }
