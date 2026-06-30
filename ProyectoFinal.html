@@ -6,6 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="dcterms.date" content="2026-06-30">
 
 <title>ProyectoFinal</title>
 <style>
@@ -71,15 +72,57 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="ProyectoFinal_files/libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="ProyectoFinal_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="ProyectoFinal_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="ProyectoFinal_files/libs/bootstrap/bootstrap-97382e64cb0b7319bf5c1e1fe849d2f9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="ProyectoFinal_files/libs/bootstrap/bootstrap-0bc436f1addf604ba52f5b34f08ef046.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
 
+<link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="fullcontent quarto-light">
+<body class="quarto-light">
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#proyecto-final" id="toc-proyecto-final" class="nav-link active" data-scroll-target="#proyecto-final">Proyecto Final</a>
+  <ul class="collapse">
+  <li><a href="#code-data-bootcamp-git-bash-y-r" id="toc-code-data-bootcamp-git-bash-y-r" class="nav-link" data-scroll-target="#code-data-bootcamp-git-bash-y-r">Code &amp; Data Bootcamp: Git, Bash y R</a></li>
+  </ul></li>
+  <li><a href="#introducción" id="toc-introducción" class="nav-link" data-scroll-target="#introducción">Introducción</a></li>
+  <li><a href="#descripción-del-conjunto-de-datos" id="toc-descripción-del-conjunto-de-datos" class="nav-link" data-scroll-target="#descripción-del-conjunto-de-datos">Descripción del conjunto de datos</a>
+  <ul class="collapse">
+  <li><a href="#fuente-de-los-datos" id="toc-fuente-de-los-datos" class="nav-link" data-scroll-target="#fuente-de-los-datos">Fuente de los datos</a></li>
+  <li><a href="#carga-del-conjunto-de-datos" id="toc-carga-del-conjunto-de-datos" class="nav-link" data-scroll-target="#carga-del-conjunto-de-datos">Carga del conjunto de datos</a></li>
+  <li><a href="#dimensiones-del-conjunto-de-datos" id="toc-dimensiones-del-conjunto-de-datos" class="nav-link" data-scroll-target="#dimensiones-del-conjunto-de-datos">Dimensiones del conjunto de datos</a></li>
+  <li><a href="#variables-del-conjunto-de-datos" id="toc-variables-del-conjunto-de-datos" class="nav-link" data-scroll-target="#variables-del-conjunto-de-datos">Variables del conjunto de datos</a></li>
+  </ul></li>
+  <li><a href="#preparación-y-limpieza-de-los-datos" id="toc-preparación-y-limpieza-de-los-datos" class="nav-link" data-scroll-target="#preparación-y-limpieza-de-los-datos">Preparación y limpieza de los datos</a>
+  <ul class="collapse">
+  <li><a href="#conversión-de-tipos-de-datos" id="toc-conversión-de-tipos-de-datos" class="nav-link" data-scroll-target="#conversión-de-tipos-de-datos">Conversión de tipos de datos</a></li>
+  <li><a href="#trasformacion-de-nuevas-variables" id="toc-trasformacion-de-nuevas-variables" class="nav-link" data-scroll-target="#trasformacion-de-nuevas-variables">Trasformacion de nuevas variables</a></li>
+  <li><a href="#creación-de-nuevas-variables" id="toc-creación-de-nuevas-variables" class="nav-link" data-scroll-target="#creación-de-nuevas-variables">Creación de nuevas variables</a></li>
+  <li><a href="#verificación-de-la-estructura-del-conjunto-de-datos" id="toc-verificación-de-la-estructura-del-conjunto-de-datos" class="nav-link" data-scroll-target="#verificación-de-la-estructura-del-conjunto-de-datos">Verificación de la estructura del conjunto de datos</a></li>
+  </ul></li>
+  <li><a href="#análisis-exploratorio-de-los-datos" id="toc-análisis-exploratorio-de-los-datos" class="nav-link" data-scroll-target="#análisis-exploratorio-de-los-datos">Análisis exploratorio de los datos</a>
+  <ul class="collapse">
+  <li><a href="#distribución-de-goles-totales-por-partido" id="toc-distribución-de-goles-totales-por-partido" class="nav-link" data-scroll-target="#distribución-de-goles-totales-por-partido">Distribución de goles totales por partido</a></li>
+  <li><a href="#número-de-partidos-jugados-por-edición" id="toc-número-de-partidos-jugados-por-edición" class="nav-link" data-scroll-target="#número-de-partidos-jugados-por-edición">Número de partidos jugados por edición</a></li>
+  <li><a href="#matriz-de-correlación" id="toc-matriz-de-correlación" class="nav-link" data-scroll-target="#matriz-de-correlación">Matriz de correlación</a></li>
+  <li><a href="#cierre-del-análisis-exploratorio" id="toc-cierre-del-análisis-exploratorio" class="nav-link" data-scroll-target="#cierre-del-análisis-exploratorio">Cierre del análisis exploratorio</a></li>
+  </ul></li>
+  <li><a href="#preguntas-de-investigación" id="toc-preguntas-de-investigación" class="nav-link" data-scroll-target="#preguntas-de-investigación">Preguntas de investigación</a>
+  <ul class="collapse">
+  <li><a href="#cómo-ha-evolucionado-la-cantidad-promedio-de-goles-por-partido-entre-1930-y-2018" id="toc-cómo-ha-evolucionado-la-cantidad-promedio-de-goles-por-partido-entre-1930-y-2018" class="nav-link" data-scroll-target="#cómo-ha-evolucionado-la-cantidad-promedio-de-goles-por-partido-entre-1930-y-2018">1. ¿Cómo ha evolucionado la cantidad promedio de goles por partido entre 1930 y 2018?</a></li>
+  <li><a href="#qué-fases-del-torneo-presentan-una-mayor-cantidad-promedio-de-goles" id="toc-qué-fases-del-torneo-presentan-una-mayor-cantidad-promedio-de-goles" class="nav-link" data-scroll-target="#qué-fases-del-torneo-presentan-una-mayor-cantidad-promedio-de-goles">2. ¿Qué fases del torneo presentan una mayor cantidad promedio de goles?</a></li>
+  <li><a href="#con-qué-frecuencia-los-partidos-requieren-tiempo-extra-o-penales" id="toc-con-qué-frecuencia-los-partidos-requieren-tiempo-extra-o-penales" class="nav-link" data-scroll-target="#con-qué-frecuencia-los-partidos-requieren-tiempo-extra-o-penales">3. ¿Con qué frecuencia los partidos requieren tiempo extra o penales?</a></li>
+  <li><a href="#los-equipos-designados-como-locales-obtienen-mejores-resultados-que-los-visitantes" id="toc-los-equipos-designados-como-locales-obtienen-mejores-resultados-que-los-visitantes" class="nav-link" data-scroll-target="#los-equipos-designados-como-locales-obtienen-mejores-resultados-que-los-visitantes">4. ¿Los equipos designados como locales obtienen mejores resultados que los visitantes?</a></li>
+  <li><a href="#qué-sedes-han-albergado-la-mayor-cantidad-de-encuentros-mundialistas" id="toc-qué-sedes-han-albergado-la-mayor-cantidad-de-encuentros-mundialistas" class="nav-link" data-scroll-target="#qué-sedes-han-albergado-la-mayor-cantidad-de-encuentros-mundialistas">5. ¿Qué sedes han albergado la mayor cantidad de encuentros mundialistas?</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
@@ -92,6 +135,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="quarto-title-meta">
 
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">June 30, 2026</p>
+    </div>
+  </div>
   
     
   </div>
@@ -106,11 +155,51 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="code-data-bootcamp-git-bash-y-r" class="level3">
 <h3 class="anchored" data-anchor-id="code-data-bootcamp-git-bash-y-r">Code &amp; Data Bootcamp: Git, Bash y R</h3>
 <p>Autores: Samuel Márquez, Emiliano Almaraz, Emiliano Sánchez, Gerónimo Chávez.</p>
+</section>
+</section>
+<section id="introducción" class="level1">
+<h1>Introducción</h1>
+<p>La Copa Mundial de la FIFA es uno de los eventos deportivos más importantes a nivel internacional, reuniendo a selecciones nacionales de distintos continentes desde 1930. A lo largo de sus ediciones se han registrado miles de datos relacionados con los partidos disputados, como los equipos participantes, las sedes, las fases del torneo, los resultados obtenidos y las fechas en que se llevaron a cabo.</p>
+<p>En este proyecto se analiza un conjunto de datos que contiene información de los partidos oficiales de las Copas del Mundo de la FIFA disputadas entre 1930 y 2018. El objetivo es aplicar técnicas de manipulación, exploración y visualización de datos utilizando R y Quarto para identificar patrones y responder preguntas de investigación relacionadas con el desempeño de los equipos, la distribución de goles y el desarrollo histórico de los torneos.</p>
+<p>Para ello, primero se realiza una descripción del conjunto de datos y un proceso de preparación que incluye la transformación de variables y la creación de nuevas características. Posteriormente, se desarrollan diferentes análisis estadísticos y visualizaciones que permiten responder las preguntas planteadas y obtener una mejor comprensión del comportamiento de los datos.</p>
+</section>
+<section id="descripción-del-conjunto-de-datos" class="level1">
+<h1>Descripción del conjunto de datos</h1>
+<section id="fuente-de-los-datos" class="level2">
+<h2 class="anchored" data-anchor-id="fuente-de-los-datos">Fuente de los datos</h2>
 <p>El proyecto utiliza los datos del archivo “wcmatches.csv”, disponible en TidyTuesday: <a href="https://github.com/rfordatascience/tidytuesday/tree/main/data/2022/2022-11-29">Link al repositorio en Github</a>.</p>
-<p>Este conjunto de datos contiene información de todos los partidos de todos los mundiales desde Uruguay 1930 hasta Rusia 2018.</p>
+<p>El conjunto de datos utilizado en este proyecto contiene información histórica de los partidos disputados en la Copa Mundial de la FIFA entre 1930 y 2018. La base de datos fue obtenida del repositorio de TidyTuesday, el cual recopila conjuntos de datos públicos para la realización de ejercicios de análisis y visualización de datos. Cada registro representa un partido oficial e incluye información relacionada con la edición del torneo, la sede, los equipos participantes, el marcador final y otras variables de interés.</p>
+</section>
+<section id="carga-del-conjunto-de-datos" class="level2">
+<h2 class="anchored" data-anchor-id="carga-del-conjunto-de-datos">Carga del conjunto de datos</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>Partidos <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">"data/wcmatches.csv"</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Partidos)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>Partidos <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/wcmatches.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>El archivo fue importado a R mediante la función read.csv(), almacenándose en el objeto <strong>Partidos</strong> el cual sera utilizado durante todo el analisis</p>
+</section>
+<section id="dimensiones-del-conjunto-de-datos" class="level2">
+<h2 class="anchored" data-anchor-id="dimensiones-del-conjunto-de-datos">Dimensiones del conjunto de datos</h2>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(Partidos)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 900  15</code></pre>
+</div>
+</div>
+<p>El conjunto de datos contiene <strong>900 observaciones</strong> y <strong>15 variables</strong>. Cada observación representa un partido oficial correspondiente a alguna edición de la Copa Mundial de la FIFA.</p>
+</section>
+<section id="variables-del-conjunto-de-datos" class="level2">
+<h2 class="anchored" data-anchor-id="variables-del-conjunto-de-datos">Variables del conjunto de datos</h2>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Partidos)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>  year country       city   stage home_team     away_team home_score away_score
 1 1930 Uruguay Montevideo Group 1    France        Mexico          4          1
@@ -129,31 +218,76 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Las columnas con las que cuenta el data-frame son:</p>
+<p>Las variables incluidas en el conjunto de datos son las siguientes:</p>
 <ul>
-<li>year: Año en el que se jugó el mundial.</li>
-<li>country: País donde se jugó el mundial.</li>
-<li>city: Ciudad donde se jugó el partido.</li>
-<li>stage: Fase en la que se realizó el partido. Si fue en fase de grupos, indica el grupo.</li>
-<li>home_team: Equipo local.</li>
-<li>away_team: Equipo visitante.</li>
-<li>home_score: Goles anotados por el equipo local.</li>
-<li>away_score: Goles anotados por el equipo visitante.</li>
-<li>outcome: (H) si ganó el equipo local, (A) si ganó el equipo visitante, (D) en caso de empate.</li>
-<li>win_conditions: Indica si el partido se ganó en tiempos extras (AET) o en penales.</li>
-<li>winning_team: Nombre del equipo ganador. En caso de empate NA.</li>
-<li>losing_team: Nombre del equipo perdedor. En caso de empate NA.</li>
-<li>date: Fecha en que se jugó el partido en formato AAAA/MM/DD.</li>
-<li>month: Mes en el que se jugó el partido.</li>
-<li>dayofweek: Día de la semana en que se jugó el partido.</li>
+<li><p><strong>year</strong> <em>(int)</em>: Año en el que se disputó la edición de la Copa Mundial de la FIFA.</p></li>
+<li><p><strong>country</strong> <em>(chr)</em>: País anfitrión donde se celebró el Mundial.</p></li>
+<li><p><strong>city</strong> <em>(chr)</em>: Ciudad en la que se disputó el partido.</p></li>
+<li><p><strong>stage</strong> <em>(chr)</em>: Fase del torneo en la que se jugó el partido. En la fase de grupos también indica el grupo correspondiente.</p></li>
+<li><p><strong>home_team</strong> <em>(chr)</em>: Selección considerada como equipo local.</p></li>
+<li><p><strong>away_team</strong> <em>(chr)</em>: Selección considerada como equipo visitante.</p></li>
+<li><p><strong>home_score</strong> <em>(int)</em>: Número de goles anotados por el equipo local.</p></li>
+<li><p><strong>away_score</strong> <em>(int)</em>: Número de goles anotados por el equipo visitante.</p></li>
+<li><p><strong>outcome</strong> <em>(chr)</em>: Resultado del encuentro, donde <strong>H</strong> indica victoria del equipo local, <strong>A</strong> victoria del equipo visitante y <strong>D</strong> empate.</p></li>
+<li><p><strong>win_conditions</strong> <em>(chr)</em>: Indica si el partido se definió en tiempo extra (<strong>AET</strong>) o mediante tanda de penales.</p></li>
+<li><p><strong>winning_team</strong> <em>(chr)</em>: Nombre del equipo ganador. En caso de empate, el valor es <strong>NA</strong>.</p></li>
+<li><p><strong>losing_team</strong> <em>(chr)</em>: Nombre del equipo perdedor. En caso de empate, el valor es <strong>NA</strong>.</p></li>
+<li><p><strong>date</strong> <em>(Date)</em>: Fecha en la que se disputó el partido (<strong>AA/MM/DD</strong>).</p></li>
+<li><p><strong>month</strong> <em>(chr)</em>: Mes en el que se disputó el encuentro.</p></li>
+<li><p><strong>dayofweek</strong> <em>(chr)</em>: Día de la semana en que se jugó el partido.</p></li>
 </ul>
-<p>Además, creamos la variable “goles_totales” para poder estudiar correctamente el numero de goles totales por partido.</p>
+<p>Una vez descritas las principales características del conjunto de datos, se procede a realizar su preparación y transformación con el fin de garantizar que la información se encuentre en el formato adecuado para el análisis y la generación de visualizaciones.</p>
 </section>
-<section id="tipos-de-datos-analizados" class="level3">
-<h3 class="anchored" data-anchor-id="tipos-de-datos-analizados">Tipos de datos analizados</h3>
+</section>
+<section id="preparación-y-limpieza-de-los-datos" class="level1">
+<h1>Preparación y limpieza de los datos</h1>
+<p>Antes de realizar el análisis exploratorio, fue necesario preparar el conjunto de datos para asegurar que las variables estuvieran en el formato adecuado y facilitar su procesamiento. Esta etapa incluyó la conversión de tipos de datos y la creación de una nueva variable que resume la cantidad total de goles anotados en cada partido.</p>
+<section id="conversión-de-tipos-de-datos" class="level2">
+<h2 class="anchored" data-anchor-id="conversión-de-tipos-de-datos">Conversión de tipos de datos</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(Partidos)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>Partidos<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(Partidos<span class="sc">$</span>date, <span class="at">format =</span> <span class="st">"%Y/%m/%d"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>La variable <strong>date</strong> fue convertida al tipo <strong>Date</strong>, lo que permite manipularla correctamente para realizar análisis temporales y facilita su interpretación dentro del conjunto de datos.</p>
+</section>
+<section id="trasformacion-de-nuevas-variables" class="level2">
+<h2 class="anchored" data-anchor-id="trasformacion-de-nuevas-variables">Trasformacion de nuevas variables</h2>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>dias_ordenados <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Monday"</span>, <span class="st">"Tuesday"</span>, <span class="st">"Wednesday"</span>, <span class="st">"Thursday"</span>, <span class="st">"Friday"</span>, <span class="st">"Saturday"</span>, <span class="st">"Sunday"</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>Partidos<span class="sc">$</span>dayofweek <span class="ot">&lt;-</span> <span class="fu">factor</span>(Partidos<span class="sc">$</span>dayofweek, <span class="at">levels =</span> dias_ordenados)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>La variable <strong>dayofweek</strong> fue convertida a un <strong>factor ordenado</strong>, estableciendo el orden cronológico de los días de la semana (de lunes a domingo). Esta transformación garantiza que, al generar tablas y visualizaciones, los días aparezcan en una secuencia lógica y no en orden alfabético, facilitando una interpretación más clara de los resultados.</p>
+</section>
+<section id="creación-de-nuevas-variables" class="level2">
+<h2 class="anchored" data-anchor-id="creación-de-nuevas-variables">Creación de nuevas variables</h2>
+<p>Se creó la variable <strong>goles_totales</strong>, la cual corresponde a la suma de los goles anotados por el equipo local y el equipo visitante en cada partido. Esta variable simplifica el análisis de la producción ofensiva durante las distintas ediciones de la Copa Mundial.</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>Partidos<span class="sc">$</span>goles_totales <span class="ot">&lt;-</span> Partidos<span class="sc">$</span>home_score <span class="sc">+</span> Partidos<span class="sc">$</span>away_score</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Partidos<span class="sc">$</span>goles_totales)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output cell-output-stdout">
-<pre><code>'data.frame':   900 obs. of  15 variables:
+<pre><code>[1] 5 3 3 4 1 3</code></pre>
+</div>
+</div>
+<p>La creación de esta variable permite analizar de manera directa la cantidad total de goles por partido, sin necesidad de calcularla repetidamente durante las distintas etapas del análisis. Además, facilita la elaboración de visualizaciones y comparaciones entre las diferentes ediciones de la Copa Mundial.</p>
+</section>
+<section id="verificación-de-la-estructura-del-conjunto-de-datos" class="level2">
+<h2 class="anchored" data-anchor-id="verificación-de-la-estructura-del-conjunto-de-datos">Verificación de la estructura del conjunto de datos</h2>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(Partidos)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   900 obs. of  16 variables:
  $ year          : int  1930 1930 1930 1930 1930 1930 1930 1930 1930 1930 ...
  $ country       : chr  "Uruguay" "Uruguay" "Uruguay" "Uruguay" ...
  $ city          : chr  "Montevideo" "Montevideo" "Montevideo" "Montevideo" ...
@@ -166,71 +300,331 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  $ win_conditions: chr  "" "" "" "" ...
  $ winning_team  : chr  "France" "United States" "Yugoslavia" "Romania" ...
  $ losing_team   : chr  "Mexico" "Belgium" "Brazil" "Peru" ...
- $ date          : chr  "1930-07-13" "1930-07-13" "1930-07-14" "1930-07-14" ...
+ $ date          : Date, format: NA NA ...
  $ month         : chr  "Jul" "Jul" "Jul" "Jul" ...
- $ dayofweek     : chr  "Sunday" "Sunday" "Monday" "Monday" ...</code></pre>
+ $ dayofweek     : Factor w/ 7 levels "Monday","Tuesday",..: 7 7 1 1 2 3 4 4 5 6 ...
+ $ goles_totales : int  5 3 3 4 1 3 4 3 1 9 ...</code></pre>
 </div>
 </div>
-<p>El dataset combina variables numéricas discretas (como los goles y años), variables categóricas de texto (como los países y fases) y variables temporales, lo que permite un análisis transversal de los mundiales.</p>
+<p>Una vez realizadas las transformaciones, se verificó nuevamente la estructura del conjunto de datos para confirmar que los cambios se aplicaron correctamente. En esta versión final, la variable <strong>date</strong> se encuentra almacenada como tipo <strong>Date</strong> y se incorpora la nueva variable <strong>goles_totales</strong>, la cual será utilizada en los análisis posteriores.</p>
 </section>
-<section id="distribución-de-datos-y-relaciones-históricas" class="level2">
-<h2 class="anchored" data-anchor-id="distribución-de-datos-y-relaciones-históricas">Distribución de Datos y Relaciones Históricas</h2>
-<p>Ajustamos el formato de las fechas y ordenamos los días de la semana de manera cronológica para evitar errores en futuras visualizaciones. Aquí incluimos la definición de la variable de los goles totales por partido.</p>
+</section>
+<section id="análisis-exploratorio-de-los-datos" class="level1">
+<h1>Análisis exploratorio de los datos</h1>
+<p>Una vez preparado el conjunto de datos, se realizó un análisis exploratorio con el propósito de comprender el comportamiento general de las principales variables antes de responder las preguntas de investigación. Esta etapa permite identificar patrones, tendencias y posibles relaciones entre los datos, facilitando la interpretación de los resultados obtenidos posteriormente.</p>
+<p>Para ello, se emplearon distintas técnicas de visualización y análisis descriptivo que permiten conocer la distribución de los goles anotados, la evolución del número de partidos disputados en cada edición de la Copa Mundial y la relación existente entre las principales variables numéricas del conjunto de datos.</p>
+<section id="distribución-de-goles-totales-por-partido" class="level2">
+<h2 class="anchored" data-anchor-id="distribución-de-goles-totales-por-partido">Distribución de goles totales por partido</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Transformación de variables temporales y creación de nuevas</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>Partidos<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(Partidos<span class="sc">$</span>date, <span class="at">format =</span> <span class="st">"%Y/%m/%d"</span>)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>dias_ordenados <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Monday"</span>, <span class="st">"Tuesday"</span>, <span class="st">"Wednesday"</span>, <span class="st">"Thursday"</span>, <span class="st">"Friday"</span>, <span class="st">"Saturday"</span>, <span class="st">"Sunday"</span>)</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>Partidos<span class="sc">$</span>dayofweek <span class="ot">&lt;-</span> <span class="fu">factor</span>(Partidos<span class="sc">$</span>dayofweek, <span class="at">levels =</span> dias_ordenados)</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>Partidos<span class="sc">$</span>goles_totales <span class="ot">&lt;-</span> Partidos<span class="sc">$</span>home_score <span class="sc">+</span> Partidos<span class="sc">$</span>away_score</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<section id="matriz-de-dispersión" class="level3">
-<h3 class="anchored" data-anchor-id="matriz-de-dispersión">Matriz de dispersión</h3>
-<p>La siguiente matriz de dispersión (Pair Plot) presenta un análisis estructurado de las cuatro variables numéricas principales de nuestro conjunto de datos: el año del mundial, los goles anotados por el equipo local y los goles del equipo visitante, y los goles totales por partido.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>datos_numericos <span class="ot">&lt;-</span> Partidos[, <span class="fu">c</span>(<span class="st">"year"</span>, <span class="st">"home_score"</span>, <span class="st">"away_score"</span>, <span class="st">"goles_totales"</span>)]</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(datos_numericos) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Año del Mundial"</span>, <span class="st">"Goles Local"</span>, <span class="st">"Goles Visitante"</span>, <span class="st">"Goles Totales"</span>)</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>matriz_correlacion <span class="ot">&lt;-</span> <span class="fu">ggpairs</span>(</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  datos_numericos,</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">upper =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="fu">wrap</span>(<span class="st">"smooth"</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">color =</span> <span class="st">"#2c3e50"</span>)), </span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">lower =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="fu">wrap</span>(<span class="st">"smooth"</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">color =</span> <span class="st">"#2c3e50"</span>)), </span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">diag =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="fu">wrap</span>(<span class="st">"densityDiag"</span>, <span class="at">fill =</span> <span class="st">"#16a085"</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>)),</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"Distribución de datos y relación entre año y goles en las ediciones de los mundiales (1930-2018)"</span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">15</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">strip.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"#ecf0f1"</span>, <span class="at">color =</span> <span class="st">"white"</span>),</span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">10</span>)</span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>matriz_correlacion</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>grafica_goles <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(Partidos, <span class="fu">aes</span>(<span class="at">x =</span> goles_totales)) <span class="sc">+</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>, <span class="at">fill =</span> <span class="st">"darkgreen"</span>, <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">alpha =</span> <span class="fl">0.9</span>) <span class="sc">+</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Distribución de Goles Totales por Partido (1930 - 2018)"</span>,</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Cantidad de Goles en un Partido"</span>,</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Número de Partidos"</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">14</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>grafica_goles</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="ProyectoFinal_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="960"></p>
+<p><img src="ProyectoFinal_files/figure-html/grafica-goles-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
+<p>La Figura 1 muestra la distribución del número total de goles anotados por partido en las Copas Mundiales de la FIFA disputadas entre 1930 y 2018. Se observa que la mayor parte de los encuentros finalizaron con entre dos y tres goles, mientras que los partidos con marcadores muy elevados (seis o más goles) fueron considerablemente menos frecuentes. Esta distribución presenta una ligera asimetría hacia la derecha, indicando que los encuentros con una alta producción ofensiva representan casos excepcionales dentro del conjunto de datos.</p>
 </section>
-<section id="interpretación-de-la-matriz" class="level3">
-<h3 class="anchored" data-anchor-id="interpretación-de-la-matriz">Interpretación de la matriz</h3>
-<p>El análisis se divide en dos componentes visuales y estadísticos:</p>
-<ol type="1">
-<li>La Diagonal Principal (Distribuciones Individuales) Cuando una variable se cruza consigo misma, el sistema proyecta una curva de densidad, estas curvas muestran dónde se concentra el mayor volumen histórico de cada variable. En el caso de los goles locales y visitantes, el pico se encuentra entre 0 y 2 anotaciones. Consecuentemente, la curva de “Goles Totales” encuentra su punto más alto alrededor de los 2 a 3 goles por partido, demostrando que los marcadores abultados son eventos estadísticamente atípicos.</li>
-</ol>
-<p>Interpretación del Eje Y (Valores decimales): Los números en el eje vertical de estas gráficas (arriba a la izquierda), representan la densidad de probabilidad. Matemáticamente, el área total debajo de una curva de densidad suma exactamente 1 (el 100% de los datos), por lo que el eje se ajusta a fracciones decimales minúsculas para mantener la proporción frente a magnitudes más grandes en el eje horizontal.</p>
-<ol start="2" type="1">
-<li>Los Cruces Fuera de la Diagonal (Relaciones Bivariadas) El resto de los cuadrantes cruza dos variables distintas. Cada punto representa un partido específico y la línea azul proyecta la tendencia general.</li>
-</ol>
-<p>Evolución temporal de los goles: En la primera columna y primera fila, al cruzar el “Año del Mundial” con cualquiera de las métricas de goles (Local, Visitante o Totales), se observa una inclinación descendente en la línea azul. Esto muestra que el promedio de goles por partido ha ido disminuyendo progresivamente desde 1930, apuntando a un fútbol históricamente más táctico y defensivo.</p>
-<p>Relaciones estructurales y de independencia: El cruce entre “Goles Local” y “Goles Visitante” muestra una nube dispersa y una línea plana, indicando que los goles de un equipo no predicen los del otro (son independientes). Los cruces que involucran los “Goles Totales” frente a los locales o visitantes, la línea azul tiene una fuerte pendiente ascendente; esto es por que el total está directamente compuesto por la suma de ambos factores.</p>
+<section id="número-de-partidos-jugados-por-edición" class="level2">
+<h2 class="anchored" data-anchor-id="número-de-partidos-jugados-por-edición">Número de partidos jugados por edición</h2>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>grafica_partidos <span class="ot">&lt;-</span> Partidos <span class="sc">%&gt;%</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(year) <span class="sc">%&gt;%</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> n)) <span class="sc">+</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"turquoise"</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"darkblue"</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Número de Partidos Jugados por edición"</span>,</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Año del Mundial"</span>,</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Cantidad de Partidos"</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">14</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>grafica_partidos</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="ProyectoFinal_files/figure-html/grafica-partidos-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>La Figura 2 presenta la evolución del número de partidos disputados en cada edición de la Copa Mundial. Se observa un incremento progresivo conforme avanzan los años, especialmente en las ediciones más recientes. Este comportamiento está relacionado con la expansión del torneo y el aumento en el número de selecciones participantes, factores que han incrementado el total de encuentros disputados en cada Mundial.</p>
 </section>
+<section id="matriz-de-correlación" class="level2">
+<h2 class="anchored" data-anchor-id="matriz-de-correlación">Matriz de correlación</h2>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>datos_numericos <span class="ot">&lt;-</span> Partidos[, <span class="fu">c</span>(<span class="st">"year"</span>, <span class="st">"home_score"</span>, <span class="st">"away_score"</span>, <span class="st">"goles_totales"</span>)]</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(datos_numericos) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Año del Mundial"</span>, <span class="st">"Goles Local"</span>, <span class="st">"Goles Visitante"</span>, <span class="st">"Goles Totales"</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>matriz_correlacion <span class="ot">&lt;-</span> <span class="fu">ggpairs</span>(</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  datos_numericos,</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">upper =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="fu">wrap</span>(<span class="st">"smooth"</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">color =</span> <span class="st">"#2c3e50"</span>)),</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">lower =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="fu">wrap</span>(<span class="st">"smooth"</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">color =</span> <span class="st">"#2c3e50"</span>)),</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">diag =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="fu">wrap</span>(<span class="st">"densityDiag"</span>, <span class="at">fill =</span> <span class="st">"#16a085"</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>)),</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"Relación entre las variables numéricas (1930–2018)"</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">15</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">strip.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"#ecf0f1"</span>, <span class="at">color =</span> <span class="st">"white"</span>),</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">10</span>)</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>matriz_correlacion</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="ProyectoFinal_files/figure-html/matriz-correlacion-1.png" class="img-fluid figure-img" width="864"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>La Figura 3 presenta una matriz de dispersión de las principales variables numéricas del conjunto de datos. En la diagonal se muestra la distribución de cada variable mediante curvas de densidad, mientras que fuera de la diagonal se representan las relaciones entre pares de variables utilizando diagramas de dispersión y curvas de suavizado.</p>
+<p>De manera general, se observa una asociación lineal negativa débil entre el año del torneo y la cantidad de goles anotados, lo que sugiere una ligera disminución en el promedio de goles conforme avanzan las ediciones de la Copa Mundial. Asimismo, las variables home_score, away_score y goles_totales presentan asociaciones positivas, resultado esperado debido a que la variable goles_totales se obtiene a partir de la suma de los goles anotados por ambos equipos.</p>
+<p>Como complemento del análisis visual, se calcularon los coeficientes de correlación de Pearson para cuantificar la intensidad de las relaciones lineales observadas.</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>matriz_pearson <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">cor</span>(datos_numericos), <span class="dv">3</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>matriz_pearson</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>                Año del Mundial Goles Local Goles Visitante Goles Totales
+Año del Mundial           1.000      -0.177          -0.175        -0.256
+Goles Local              -0.177       1.000          -0.056         0.734
+Goles Visitante          -0.175      -0.056           1.000         0.638
+Goles Totales            -0.256       0.734           0.638         1.000</code></pre>
+</div>
+</div>
+<p>Los coeficientes de correlación de Pearson permiten confirmar las tendencias observadas en la matriz de dispersión. En particular, se aprecia una correlación negativa de baja magnitud entre el año del torneo y las variables relacionadas con la cantidad de goles, mientras que las correlaciones positivas entre home_score, away_score y goles_totales reflejan la relación matemática existente entre estas variables.</p>
+<p>Es importante señalar que esta matriz de correlación tiene un carácter exploratorio. Su objetivo no es establecer relaciones de causalidad, sino ofrecer una visión general del comportamiento de las variables numéricas e identificar posibles patrones que puedan analizarse con mayor profundidad en las preguntas de investigación.</p>
+</section>
+<section id="cierre-del-análisis-exploratorio" class="level2">
+<h2 class="anchored" data-anchor-id="cierre-del-análisis-exploratorio">Cierre del análisis exploratorio</h2>
+<p>En conjunto, el análisis exploratorio permitió obtener una visión general del comportamiento del conjunto de datos, identificar patrones relevantes y comprender las relaciones entre sus principales variables numéricas. Estas observaciones constituyen el punto de partida para el desarrollo de las preguntas de investigación, en las cuales se profundiza el análisis mediante visualizaciones y procedimientos específicos.</p>
+</section>
+</section>
+<section id="preguntas-de-investigación" class="level1">
+<h1>Preguntas de investigación</h1>
+<section id="cómo-ha-evolucionado-la-cantidad-promedio-de-goles-por-partido-entre-1930-y-2018" class="level2">
+<h2 class="anchored" data-anchor-id="cómo-ha-evolucionado-la-cantidad-promedio-de-goles-por-partido-entre-1930-y-2018">1. ¿Cómo ha evolucionado la cantidad promedio de goles por partido entre 1930 y 2018?</h2>
+<p><strong>Variables:</strong> <code>year</code>, <code>goles_totales</code></p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>goles_por_anio <span class="ot">&lt;-</span> Partidos <span class="sc">%&gt;%</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">promedio_goles =</span> <span class="fu">mean</span>(goles_totales), <span class="at">.groups =</span> <span class="st">"drop"</span>)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(goles_por_anio, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> promedio_goles)) <span class="sc">+</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"steelblue"</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"steelblue"</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Promedio de goles por partido en cada Mundial (1930-2018)"</span>,</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Año del Mundial"</span>,</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Promedio de goles por partido"</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">14</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="ProyectoFinal_files/figure-html/grafica-1-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Explicación:</strong> El promedio de goles por partido no ha sido constante: se observan picos muy altos en las primeras ediciones (1930-1950), con valores que superan los 4 goles por partido, y una tendencia general a la baja desde entonces. Desde los años 90 el promedio se estabiliza entre 2.5 y 3 goles por partido, lo que coincide con cambios tácticos y reglamentarios en el fútbol moderno frente a los esquemas más ofensivos de mediados del siglo XX.</p>
+</section>
+<section id="qué-fases-del-torneo-presentan-una-mayor-cantidad-promedio-de-goles" class="level2">
+<h2 class="anchored" data-anchor-id="qué-fases-del-torneo-presentan-una-mayor-cantidad-promedio-de-goles">2. ¿Qué fases del torneo presentan una mayor cantidad promedio de goles?</h2>
+<p><strong>Variables:</strong> <code>stage</code>, <code>goles_totales</code></p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>Partidos <span class="ot">&lt;-</span> Partidos <span class="sc">%&gt;%</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">stage_agrupado =</span> <span class="fu">ifelse</span>(</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">grepl</span>(<span class="st">"^Group"</span>, <span class="fu">trimws</span>(stage)),</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Fase de grupos"</span>,</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">trimws</span>(stage)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  ))</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>goles_por_fase <span class="ot">&lt;-</span> Partidos <span class="sc">%&gt;%</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(stage_agrupado) <span class="sc">%&gt;%</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">promedio_goles =</span> <span class="fu">mean</span>(goles_totales), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(promedio_goles))</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(goles_por_fase,</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(stage_agrupado, promedio_goles), <span class="at">y =</span> promedio_goles)) <span class="sc">+</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"darkorange"</span>) <span class="sc">+</span></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Promedio de goles por partido según fase del torneo"</span>,</span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Fase del torneo"</span>,</span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Promedio de goles por partido"</span></span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">14</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="ProyectoFinal_files/figure-html/grafica-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Explicación:</strong> Las fases más avanzadas y decisivas del torneo (finales, semifinales y el partido por el tercer lugar) muestran promedios de goles más altos que la fase de grupos. Esto puede explicarse porque en estas instancias se enfrentan selecciones de mayor nivel ofensivo y algunos partidos se definen en tiempo extra, lo que añade goles. La fase de grupos presenta el promedio más bajo, posiblemente por el carácter más conservador de equipos que buscan asegurar puntos antes de arriesgar.</p>
+</section>
+<section id="con-qué-frecuencia-los-partidos-requieren-tiempo-extra-o-penales" class="level2">
+<h2 class="anchored" data-anchor-id="con-qué-frecuencia-los-partidos-requieren-tiempo-extra-o-penales">3. ¿Con qué frecuencia los partidos requieren tiempo extra o penales?</h2>
+<p><strong>Variable:</strong> <code>win_conditions</code></p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>condiciones <span class="ot">&lt;-</span> Partidos <span class="sc">%&gt;%</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">condicion =</span> <span class="fu">case_when</span>(</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    win_conditions <span class="sc">==</span> <span class="st">""</span> <span class="sc">|</span> <span class="fu">is.na</span>(win_conditions) <span class="sc">~</span> <span class="st">"Tiempo regular"</span>,</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">grepl</span>(<span class="st">"penalties"</span>, win_conditions, <span class="at">ignore.case =</span> <span class="cn">TRUE</span>) <span class="sc">~</span> <span class="st">"Penales"</span>,</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">grepl</span>(<span class="st">"AET"</span>, win_conditions, <span class="at">ignore.case =</span> <span class="cn">TRUE</span>) <span class="sc">~</span> <span class="st">"Tiempo extra (AET)"</span>,</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Otro"</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(condicion) <span class="sc">%&gt;%</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">porcentaje =</span> <span class="fu">round</span>(<span class="dv">100</span> <span class="sc">*</span> n <span class="sc">/</span> <span class="fu">sum</span>(n), <span class="dv">1</span>))</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(condiciones, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(condicion, n), <span class="at">y =</span> n, <span class="at">fill =</span> condicion)) <span class="sc">+</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(n, <span class="st">" ("</span>, porcentaje, <span class="st">"%)"</span>)), <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Frecuencia de partidos según cómo se definieron"</span>,</span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Condición de finalización"</span>,</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Número de partidos"</span></span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_limits</span>(<span class="at">y =</span> <span class="fu">max</span>(condiciones<span class="sc">$</span>n) <span class="sc">*</span> <span class="fl">1.15</span>) <span class="sc">+</span></span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">14</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="ProyectoFinal_files/figure-html/grafica-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Explicación:</strong> La gran mayoría de los partidos (más del 90%) se resuelven en tiempo regular. Los partidos con tiempo extra son una minoría, y dentro de esos solo una fracción aún menor termina en penales. Esto es consistente con la estructura del torneo: el tiempo extra y los penales solo son posibles en partidos de eliminación directa, mientras que la fase de grupos, que concentra más de la mitad de los partidos, siempre se resuelve en 90 minutos.</p>
+</section>
+<section id="los-equipos-designados-como-locales-obtienen-mejores-resultados-que-los-visitantes" class="level2">
+<h2 class="anchored" data-anchor-id="los-equipos-designados-como-locales-obtienen-mejores-resultados-que-los-visitantes">4. ¿Los equipos designados como locales obtienen mejores resultados que los visitantes?</h2>
+<p><strong>Variable:</strong> <code>outcome</code></p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>resultados <span class="ot">&lt;-</span> Partidos <span class="sc">%&gt;%</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">resultado =</span> <span class="fu">case_when</span>(</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    outcome <span class="sc">==</span> <span class="st">"H"</span> <span class="sc">~</span> <span class="st">"Gana local"</span>,</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    outcome <span class="sc">==</span> <span class="st">"A"</span> <span class="sc">~</span> <span class="st">"Gana visitante"</span>,</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    outcome <span class="sc">==</span> <span class="st">"D"</span> <span class="sc">~</span> <span class="st">"Empate"</span>,</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Otro"</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(resultado) <span class="sc">%&gt;%</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">porcentaje =</span> <span class="fu">round</span>(<span class="dv">100</span> <span class="sc">*</span> n <span class="sc">/</span> <span class="fu">sum</span>(n), <span class="dv">1</span>))</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(resultados, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(resultado, n), <span class="at">y =</span> n, <span class="at">fill =</span> resultado)) <span class="sc">+</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(n, <span class="st">" ("</span>, porcentaje, <span class="st">"%)"</span>)), <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Resultado de los partidos: local vs. visitante"</span>,</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Resultado"</span>,</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Número de partidos"</span></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">14</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="ProyectoFinal_files/figure-html/grafica-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Explicación:</strong> Los equipos designados como “locales” en el dataset ganan en aproximadamente la mitad de los partidos, una proporción más alta que los visitantes y que los empates. Es importante aclarar que en el Mundial el concepto de “local” no siempre equivale a jugar en casa (salvo para el país anfitrión); suele reflejar el orden en que se registró el partido. Aun así, el patrón sugiere una ligera ventaja asociada a esa designación.</p>
+</section>
+<section id="qué-sedes-han-albergado-la-mayor-cantidad-de-encuentros-mundialistas" class="level2">
+<h2 class="anchored" data-anchor-id="qué-sedes-han-albergado-la-mayor-cantidad-de-encuentros-mundialistas">5. ¿Qué sedes han albergado la mayor cantidad de encuentros mundialistas?</h2>
+<p><strong>Variables:</strong> <code>city</code>, <code>country</code></p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>top_sedes <span class="ot">&lt;-</span> Partidos <span class="sc">%&gt;%</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sede =</span> <span class="fu">paste0</span>(city, <span class="st">" ("</span>, country, <span class="st">")"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(sede, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">10</span>)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(top_sedes, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(sede, n), <span class="at">y =</span> n)) <span class="sc">+</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"seagreen"</span>) <span class="sc">+</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Top 10 sedes con más partidos mundialistas"</span>,</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Sede (ciudad, país)"</span>,</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Número de partidos"</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">14</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="ProyectoFinal_files/figure-html/grafica-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Explicación:</strong> La Ciudad de México lidera como la sede con más partidos mundialistas en la historia, resultado directo de haber albergado dos ediciones completas del torneo (1970 y 1986). Le siguen ciudades como Montevideo (sede de la primera Copa del Mundo en 1930) y Guadalajara, también beneficiada por las dos ediciones mexicanas. El ranking refleja sobre todo qué países han sido anfitriones en más de una ocasión, más que un patrón relacionado con el desempeño futbolístico de esas sedes.</p>
 </section>
 </section>
 

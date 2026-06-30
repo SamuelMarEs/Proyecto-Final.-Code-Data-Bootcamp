@@ -3,7 +3,7 @@ library(ggplot2)
 library(GGally)
 
 # Carga de datos
-Partidos <- read.csv("wcmatches.csv")
+Partidos <- read.csv("data/wcmatches.csv")
 
 # Ajustes de variables para q las graficas se vean mas wonitas
 # Este pa convertir la fecha a un formato de fecha que pueda leer correctamente R
@@ -83,3 +83,4 @@ matriz_pearson <- round(cor(datos_numericos), 3)
 
 print("Coeficientes de Correlación de Pearson:")
 matriz_pearson
+

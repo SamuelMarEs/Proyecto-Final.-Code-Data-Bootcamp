@@ -1,8 +1,31 @@
 ---
 title: "ProyectoFinal"
-format: html
+date: today
+format:
+  html:
+    toc: true
+    toc-float: true
+    theme: flatly
+    css: styles.css
+    code-fold: show
 editor: visual
+execute:
+  warning: false
+  message: false
 ---
+
+```{r}
+#| label: setup
+#| include: false
+
+# Librerías
+library(dplyr)
+library(ggplot2)
+library(GGally)
+
+# Opciones generales
+options(scipen = 999)
+```
 
 # Proyecto Final
 
@@ -10,79 +33,182 @@ editor: visual
 
 Autores: Samuel Márquez, Emiliano Almaraz, Emiliano Sánchez, Gerónimo Chávez.
 
+# Introducción
+
+La Copa Mundial de la FIFA es uno de los eventos deportivos más importantes a nivel internacional, reuniendo a selecciones nacionales de distintos continentes desde 1930. A lo largo de sus ediciones se han registrado miles de datos relacionados con los partidos disputados, como los equipos participantes, las sedes, las fases del torneo, los resultados obtenidos y las fechas en que se llevaron a cabo.
+
+En este proyecto se analiza un conjunto de datos que contiene información de los partidos oficiales de las Copas del Mundo de la FIFA disputadas entre 1930 y 2018. El objetivo es aplicar técnicas de manipulación, exploración y visualización de datos utilizando R y Quarto para identificar patrones y responder preguntas de investigación relacionadas con el desempeño de los equipos, la distribución de goles y el desarrollo histórico de los torneos.
+
+Para ello, primero se realiza una descripción del conjunto de datos y un proceso de preparación que incluye la transformación de variables y la creación de nuevas características. Posteriormente, se desarrollan diferentes análisis estadísticos y visualizaciones que permiten responder las preguntas planteadas y obtener una mejor comprensión del comportamiento de los datos.
+
+# Descripción del conjunto de datos
+
+## Fuente de los datos
+
 El proyecto utiliza los datos del archivo "wcmatches.csv", disponible en TidyTuesday: [Link al repositorio en Github](https://github.com/rfordatascience/tidytuesday/tree/main/data/2022/2022-11-29).
 
-Este conjunto de datos contiene información de todos los partidos de todos los mundiales desde Uruguay 1930 hasta Rusia 2018.
+El conjunto de datos utilizado en este proyecto contiene información histórica de los partidos disputados en la Copa Mundial de la FIFA entre 1930 y 2018. La base de datos fue obtenida del repositorio de TidyTuesday, el cual recopila conjuntos de datos públicos para la realización de ejercicios de análisis y visualización de datos. Cada registro representa un partido oficial e incluye información relacionada con la edición del torneo, la sede, los equipos participantes, el marcador final y otras variables de interés.
+
+## Carga del conjunto de datos
 
 ```{r}
-Partidos = read.csv("data/wcmatches.csv")
+Partidos <- read.csv("data/wcmatches.csv")
+```
+
+El archivo fue importado a R mediante la función read.csv(), almacenándose en el objeto **Partidos** el cual sera utilizado durante todo el analisis
+
+## Dimensiones del conjunto de datos
+
+```{r}
+dim(Partidos)
+```
+
+El conjunto de datos contiene **900 observaciones** y **15 variables**. Cada observación representa un partido oficial correspondiente a alguna edición de la Copa Mundial de la FIFA.
+
+## Variables del conjunto de datos
+
+```{r}
 head(Partidos)
 ```
 
 Las columnas con las que cuenta el data-frame son:
 
-- year: Año en el que se jugó el mundial.
-- country: País donde se jugó el mundial.
-- city: Ciudad donde se jugó el partido.
-- stage: Fase en la que se realizó el partido. Si fue en fase de grupos, indica el grupo.
-- home_team: Equipo local.
-- away_team: Equipo visitante.
-- home_score: Goles anotados por el equipo local.
-- away_score: Goles anotados por el equipo visitante.
-- outcome: (H) si ganó el equipo local, (A) si ganó el equipo visitante, (D) en caso de empate.
-- win_conditions: Indica si el partido se ganó en tiempos extras (AET) o en penales.
-- winning_team: Nombre del equipo ganador. En caso de empate NA.
-- losing_team: Nombre del equipo perdedor. En caso de empate NA.
-- date: Fecha en que se jugó el partido en formato AAAA/MM/DD.
-- month: Mes en el que se jugó el partido.
-- dayofweek: Día de la semana en que se jugó el partido.
+Las variables incluidas en el conjunto de datos son las siguientes:
 
-Además, creamos la variable "goles_totales" para poder estudiar correctamente el numero de goles totales por partido.
+- **year** *(int)*: Año en el que se disputó la edición de la Copa Mundial de la FIFA.
 
-### Tipos de datos analizados
+- **country** *(chr)*: País anfitrión donde se celebró el Mundial.
+
+- **city** *(chr)*: Ciudad en la que se disputó el partido.
+
+- **stage** *(chr)*: Fase del torneo en la que se jugó el partido. En la fase de grupos también indica el grupo correspondiente.
+
+- **home_team** *(chr)*: Selección considerada como equipo local.
+
+- **away_team** *(chr)*: Selección considerada como equipo visitante.
+
+- **home_score** *(int)*: Número de goles anotados por el equipo local.
+
+- **away_score** *(int)*: Número de goles anotados por el equipo visitante.
+
+- **outcome** *(chr)*: Resultado del encuentro, donde **H** indica victoria del equipo local, **A** victoria del equipo visitante y **D** empate.
+
+- **win_conditions** *(chr)*: Indica si el partido se definió en tiempo extra (**AET**) o mediante tanda de penales.
+
+- **winning_team** *(chr)*: Nombre del equipo ganador. En caso de empate, el valor es **NA**.
+
+- **losing_team** *(chr)*: Nombre del equipo perdedor. En caso de empate, el valor es **NA**.
+
+- **date** *(Date)*: Fecha en la que se disputó el partido (**AA/MM/DD**).
+
+- **month** *(chr)*: Mes en el que se disputó el encuentro.
+
+- **dayofweek** *(chr)*: Día de la semana en que se jugó el partido.
+
+Una vez descritas las principales características del conjunto de datos, se procede a realizar su preparación y transformación con el fin de garantizar que la información se encuentre en el formato adecuado para el análisis y la generación de visualizaciones.
+
+# Preparación y limpieza de los datos
+
+Antes de realizar el análisis exploratorio, fue necesario preparar el conjunto de datos para asegurar que las variables estuvieran en el formato adecuado y facilitar su procesamiento. Esta etapa incluyó la conversión de tipos de datos y la creación de una nueva variable que resume la cantidad total de goles anotados en cada partido.
+
+## Conversión de tipos de datos
+
+```{r}
+Partidos$date <- as.Date(Partidos$date, format = "%Y/%m/%d")
+```
+
+La variable **date** fue convertida al tipo **Date**, lo que permite manipularla correctamente para realizar análisis temporales y facilita su interpretación dentro del conjunto de datos.
+
+## Trasformacion de nuevas variables
+
+```{r}
+dias_ordenados <- c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
+Partidos$dayofweek <- factor(Partidos$dayofweek, levels = dias_ordenados)
+```
+
+La variable **dayofweek** fue convertida a un **factor ordenado**, estableciendo el orden cronológico de los días de la semana (de lunes a domingo). Esta transformación garantiza que, al generar tablas y visualizaciones, los días aparezcan en una secuencia lógica y no en orden alfabético, facilitando una interpretación más clara de los resultados.
+
+## Creación de nuevas variables
+
+Se creó la variable **goles_totales**, la cual corresponde a la suma de los goles anotados por el equipo local y el equipo visitante en cada partido. Esta variable simplifica el análisis de la producción ofensiva durante las distintas ediciones de la Copa Mundial.
+
+```{r}
+Partidos$goles_totales <- Partidos$home_score + Partidos$away_score
+
+head(Partidos$goles_totales)
+```
+
+La creación de esta variable permite analizar de manera directa la cantidad total de goles por partido, sin necesidad de calcularla repetidamente durante las distintas etapas del análisis. Además, facilita la elaboración de visualizaciones y comparaciones entre las diferentes ediciones de la Copa Mundial.
+
+## Verificación de la estructura del conjunto de datos
 
 ```{r}
 str(Partidos)
 ```
 
-El dataset combina variables numéricas discretas (como los goles y años), variables categóricas de texto (como los países y fases) y variables temporales, lo que permite un análisis transversal de los mundiales.
+Una vez realizadas las transformaciones, se verificó nuevamente la estructura del conjunto de datos para confirmar que los cambios se aplicaron correctamente. En esta versión final, la variable **date** se encuentra almacenada como tipo **Date** y se incorpora la nueva variable **goles_totales**, la cual será utilizada en los análisis posteriores.
 
-## Distribución de Datos y Relaciones Históricas
+# Análisis exploratorio de los datos
 
-Ajustamos el formato de las fechas y ordenamos los días de la semana de manera cronológica para evitar errores en futuras visualizaciones. Aquí incluimos la definición de la variable de los goles totales por partido.
+Una vez preparado el conjunto de datos, se realizó un análisis exploratorio con el propósito de comprender el comportamiento general de las principales variables antes de responder las preguntas de investigación. Esta etapa permite identificar patrones, tendencias y posibles relaciones entre los datos, facilitando la interpretación de los resultados obtenidos posteriormente.
 
-```{r}
-# Transformación de variables temporales y creación de nuevas
-Partidos$date <- as.Date(Partidos$date, format = "%Y/%m/%d")
+Para ello, se emplearon distintas técnicas de visualización y análisis descriptivo que permiten conocer la distribución de los goles anotados, la evolución del número de partidos disputados en cada edición de la Copa Mundial y la relación existente entre las principales variables numéricas del conjunto de datos.
 
-dias_ordenados <- c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
-Partidos$dayofweek <- factor(Partidos$dayofweek, levels = dias_ordenados)
+## Distribución de goles totales por partido
 
-Partidos$goles_totales <- Partidos$home_score + Partidos$away_score
+```{r grafica-goles}
+grafica_goles <- ggplot(Partidos, aes(x = goles_totales)) +
+  geom_histogram(binwidth = 1, fill = "darkgreen", color = "white", alpha = 0.9) +
+  labs(
+    title = "Distribución de Goles Totales por Partido (1930 - 2018)",
+    x = "Cantidad de Goles en un Partido",
+    y = "Número de Partidos"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 14, hjust = 0.5),
+    panel.grid.minor = element_blank()
+  )
+grafica_goles
 ```
 
-### Matriz de dispersión
+La Figura 1 muestra la distribución del número total de goles anotados por partido en las Copas Mundiales de la FIFA disputadas entre 1930 y 2018. Se observa que la mayor parte de los encuentros finalizaron con entre dos y tres goles, mientras que los partidos con marcadores muy elevados (seis o más goles) fueron considerablemente menos frecuentes. Esta distribución presenta una ligera asimetría hacia la derecha, indicando que los encuentros con una alta producción ofensiva representan casos excepcionales dentro del conjunto de datos.
 
-La siguiente matriz de dispersión (Pair Plot) presenta un análisis estructurado de las cuatro variables numéricas principales de nuestro conjunto de datos: el año del mundial, los goles anotados por el equipo local y los goles del equipo visitante, y los goles totales por partido.
+## Número de partidos jugados por edición
 
-```{r}
-#| message: false
-#| warning: false
-#| fig-width: 10
-#| fig-height: 10
+```{r grafica-partidos}
+grafica_partidos <- Partidos %>%
+  count(year) %>%
+  ggplot(aes(x = year, y = n)) +
+  geom_line(color = "turquoise", linewidth = 1) +
+  geom_point(color = "darkblue", size = 2) +
+  labs(
+    title = "Número de Partidos Jugados por edición",
+    x = "Año del Mundial",
+    y = "Cantidad de Partidos"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 14, hjust = 0.5),
+    panel.grid.minor = element_blank()
+  )
+grafica_partidos
+```
 
-library(ggplot2)
-library(GGally)
+La Figura 2 presenta la evolución del número de partidos disputados en cada edición de la Copa Mundial. Se observa un incremento progresivo conforme avanzan los años, especialmente en las ediciones más recientes. Este comportamiento está relacionado con la expansión del torneo y el aumento en el número de selecciones participantes, factores que han incrementado el total de encuentros disputados en cada Mundial.
 
+## Matriz de correlación
+
+```{r matriz-correlacion, fig.width=9, fig.height=9}
 datos_numericos <- Partidos[, c("year", "home_score", "away_score", "goles_totales")]
 colnames(datos_numericos) <- c("Año del Mundial", "Goles Local", "Goles Visitante", "Goles Totales")
+
 matriz_correlacion <- ggpairs(
   datos_numericos,
-  upper = list(continuous = wrap("smooth", alpha = 0.3, color = "#2c3e50")), 
-  lower = list(continuous = wrap("smooth", alpha = 0.3, color = "#2c3e50")), 
+  upper = list(continuous = wrap("smooth", alpha = 0.3, color = "#2c3e50")),
+  lower = list(continuous = wrap("smooth", alpha = 0.3, color = "#2c3e50")),
   diag = list(continuous = wrap("densityDiag", fill = "#16a085", alpha = 0.6)),
-  
-  title = "Distribución de datos y relación entre año y goles en las ediciones de los mundiales (1930-2018)"
+  title = "Relación entre las variables numéricas (1930–2018)"
 ) +
   theme_minimal(base_size = 12) +
   theme(
@@ -93,16 +219,177 @@ matriz_correlacion <- ggpairs(
 matriz_correlacion
 ```
 
-### Interpretación de la matriz
+La Figura 3 presenta una matriz de dispersión de las principales variables numéricas del conjunto de datos. En la diagonal se muestra la distribución de cada variable mediante curvas de densidad, mientras que fuera de la diagonal se representan las relaciones entre pares de variables utilizando diagramas de dispersión y curvas de suavizado.
 
-El análisis se divide en dos componentes visuales y estadísticos:
+De manera general, se observa una asociación lineal negativa débil entre el año del torneo y la cantidad de goles anotados, lo que sugiere una ligera disminución en el promedio de goles conforme avanzan las ediciones de la Copa Mundial. Asimismo, las variables home_score, away_score y goles_totales presentan asociaciones positivas, resultado esperado debido a que la variable goles_totales se obtiene a partir de la suma de los goles anotados por ambos equipos.
 
-1.  La Diagonal Principal (Distribuciones Individuales) Cuando una variable se cruza consigo misma, el sistema proyecta una curva de densidad, estas curvas muestran dónde se concentra el mayor volumen histórico de cada variable. En el caso de los goles locales y visitantes, el pico se encuentra entre 0 y 2 anotaciones. Consecuentemente, la curva de "Goles Totales" encuentra su punto más alto alrededor de los 2 a 3 goles por partido, demostrando que los marcadores abultados son eventos estadísticamente atípicos.
+Como complemento del análisis visual, se calcularon los coeficientes de correlación de Pearson para cuantificar la intensidad de las relaciones lineales observadas.
 
-Interpretación del Eje Y (Valores decimales): Los números en el eje vertical de estas gráficas (arriba a la izquierda), representan la densidad de probabilidad. Matemáticamente, el área total debajo de una curva de densidad suma exactamente 1 (el 100% de los datos), por lo que el eje se ajusta a fracciones decimales minúsculas para mantener la proporción frente a magnitudes más grandes en el eje horizontal.
+```{r tabla-pearson}
+matriz_pearson <- round(cor(datos_numericos), 3)
+matriz_pearson
+```
 
-2.  Los Cruces Fuera de la Diagonal (Relaciones Bivariadas) El resto de los cuadrantes cruza dos variables distintas. Cada punto representa un partido específico y la línea azul proyecta la tendencia general.
+Los coeficientes de correlación de Pearson permiten confirmar las tendencias observadas en la matriz de dispersión. En particular, se aprecia una correlación negativa de baja magnitud entre el año del torneo y las variables relacionadas con la cantidad de goles, mientras que las correlaciones positivas entre home_score, away_score y goles_totales reflejan la relación matemática existente entre estas variables.
 
-Evolución temporal de los goles: En la primera columna y primera fila, al cruzar el "Año del Mundial" con cualquiera de las métricas de goles (Local, Visitante o Totales), se observa una inclinación descendente en la línea azul. Esto muestra que el promedio de goles por partido ha ido disminuyendo progresivamente desde 1930, apuntando a un fútbol históricamente más táctico y defensivo.
+Es importante señalar que esta matriz de correlación tiene un carácter exploratorio. Su objetivo no es establecer relaciones de causalidad, sino ofrecer una visión general del comportamiento de las variables numéricas e identificar posibles patrones que puedan analizarse con mayor profundidad en las preguntas de investigación.
 
-Relaciones estructurales y de independencia: El cruce entre "Goles Local" y "Goles Visitante" muestra una nube dispersa y una línea plana, indicando que los goles de un equipo no predicen los del otro (son independientes). Los cruces que involucran los "Goles Totales" frente a los locales o visitantes, la línea azul tiene una fuerte pendiente ascendente; esto es por que el total está directamente compuesto por la suma de ambos factores.
+## Cierre del análisis exploratorio
+
+En conjunto, el análisis exploratorio permitió obtener una visión general del comportamiento del conjunto de datos, identificar patrones relevantes y comprender las relaciones entre sus principales variables numéricas. Estas observaciones constituyen el punto de partida para el desarrollo de las preguntas de investigación, en las cuales se profundiza el análisis mediante visualizaciones y procedimientos específicos.
+
+# Preguntas de investigación
+
+## 1. ¿Cómo ha evolucionado la cantidad promedio de goles por partido entre 1930 y 2018?
+
+**Variables:** `year`, `goles_totales`
+
+```{r grafica-1}
+goles_por_anio <- Partidos %>%
+  group_by(year) %>%
+  summarise(promedio_goles = mean(goles_totales), .groups = "drop")
+
+ggplot(goles_por_anio, aes(x = year, y = promedio_goles)) +
+  geom_line(color = "steelblue", linewidth = 1) +
+  geom_point(color = "steelblue", size = 2) +
+  labs(
+    title = "Promedio de goles por partido en cada Mundial (1930-2018)",
+    x = "Año del Mundial",
+    y = "Promedio de goles por partido"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 14, hjust = 0.5),
+    panel.grid.minor = element_blank()
+  )
+```
+
+**Explicación:** El promedio de goles por partido no ha sido constante: se observan picos muy altos en las primeras ediciones (1930-1950), con valores que superan los 4 goles por partido, y una tendencia general a la baja desde entonces. Desde los años 90 el promedio se estabiliza entre 2.5 y 3 goles por partido, lo que coincide con cambios tácticos y reglamentarios en el fútbol moderno frente a los esquemas más ofensivos de mediados del siglo XX.
+
+## 2. ¿Qué fases del torneo presentan una mayor cantidad promedio de goles?
+
+**Variables:** `stage`, `goles_totales`
+
+```{r grafica-2}
+Partidos <- Partidos %>%
+  mutate(stage_agrupado = ifelse(
+    grepl("^Group", trimws(stage)),
+    "Fase de grupos",
+    trimws(stage)
+  ))
+
+goles_por_fase <- Partidos %>%
+  group_by(stage_agrupado) %>%
+  summarise(promedio_goles = mean(goles_totales), .groups = "drop") %>%
+  arrange(desc(promedio_goles))
+
+ggplot(goles_por_fase,
+       aes(x = reorder(stage_agrupado, promedio_goles), y = promedio_goles)) +
+  geom_col(fill = "darkorange") +
+  coord_flip() +
+  labs(
+    title = "Promedio de goles por partido según fase del torneo",
+    x = "Fase del torneo",
+    y = "Promedio de goles por partido"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 14, hjust = 0.5),
+    panel.grid.minor = element_blank()
+  )
+```
+
+**Explicación:** Las fases más avanzadas y decisivas del torneo (finales, semifinales y el partido por el tercer lugar) muestran promedios de goles más altos que la fase de grupos. Esto puede explicarse porque en estas instancias se enfrentan selecciones de mayor nivel ofensivo y algunos partidos se definen en tiempo extra, lo que añade goles. La fase de grupos presenta el promedio más bajo, posiblemente por el carácter más conservador de equipos que buscan asegurar puntos antes de arriesgar.
+
+## 3. ¿Con qué frecuencia los partidos requieren tiempo extra o penales?
+
+**Variable:** `win_conditions`
+
+```{r grafica-3}
+condiciones <- Partidos %>%
+  mutate(condicion = case_when(
+    win_conditions == "" | is.na(win_conditions) ~ "Tiempo regular",
+    grepl("penalties", win_conditions, ignore.case = TRUE) ~ "Penales",
+    grepl("AET", win_conditions, ignore.case = TRUE) ~ "Tiempo extra (AET)",
+    TRUE ~ "Otro"
+  )) %>%
+  count(condicion) %>%
+  mutate(porcentaje = round(100 * n / sum(n), 1))
+
+ggplot(condiciones, aes(x = reorder(condicion, n), y = n, fill = condicion)) +
+  geom_col(show.legend = FALSE) +
+  geom_text(aes(label = paste0(n, " (", porcentaje, "%)")), hjust = -0.1) +
+  coord_flip() +
+  labs(
+    title = "Frecuencia de partidos según cómo se definieron",
+    x = "Condición de finalización",
+    y = "Número de partidos"
+  ) +
+  theme_minimal() +
+  expand_limits(y = max(condiciones$n) * 1.15) +
+  theme(
+    plot.title = element_text(face = "bold", size = 14, hjust = 0.5),
+    panel.grid.minor = element_blank()
+  )
+```
+
+**Explicación:** La gran mayoría de los partidos (más del 90%) se resuelven en tiempo regular. Los partidos con tiempo extra son una minoría, y dentro de esos solo una fracción aún menor termina en penales. Esto es consistente con la estructura del torneo: el tiempo extra y los penales solo son posibles en partidos de eliminación directa, mientras que la fase de grupos, que concentra más de la mitad de los partidos, siempre se resuelve en 90 minutos.
+
+## 4. ¿Los equipos designados como locales obtienen mejores resultados que los visitantes?
+
+**Variable:** `outcome`
+
+```{r grafica-4}
+resultados <- Partidos %>%
+  mutate(resultado = case_when(
+    outcome == "H" ~ "Gana local",
+    outcome == "A" ~ "Gana visitante",
+    outcome == "D" ~ "Empate",
+    TRUE ~ "Otro"
+  )) %>%
+  count(resultado) %>%
+  mutate(porcentaje = round(100 * n / sum(n), 1))
+
+ggplot(resultados, aes(x = reorder(resultado, n), y = n, fill = resultado)) +
+  geom_col(show.legend = FALSE) +
+  geom_text(aes(label = paste0(n, " (", porcentaje, "%)")), vjust = -0.4) +
+  labs(
+    title = "Resultado de los partidos: local vs. visitante",
+    x = "Resultado",
+    y = "Número de partidos"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 14, hjust = 0.5),
+    panel.grid.minor = element_blank()
+  )
+```
+
+**Explicación:** Los equipos designados como "locales" en el dataset ganan en aproximadamente la mitad de los partidos, una proporción más alta que los visitantes y que los empates. Es importante aclarar que en el Mundial el concepto de "local" no siempre equivale a jugar en casa (salvo para el país anfitrión); suele reflejar el orden en que se registró el partido. Aun así, el patrón sugiere una ligera ventaja asociada a esa designación.
+
+## 5. ¿Qué sedes han albergado la mayor cantidad de encuentros mundialistas?
+
+**Variables:** `city`, `country`
+
+```{r grafica-5}
+top_sedes <- Partidos %>%
+  mutate(sede = paste0(city, " (", country, ")")) %>%
+  count(sede, sort = TRUE) %>%
+  slice_head(n = 10)
+
+ggplot(top_sedes, aes(x = reorder(sede, n), y = n)) +
+  geom_col(fill = "seagreen") +
+  coord_flip() +
+  labs(
+    title = "Top 10 sedes con más partidos mundialistas",
+    x = "Sede (ciudad, país)",
+    y = "Número de partidos"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 14, hjust = 0.5),
+    panel.grid.minor = element_blank()
+  )
+```
+
+**Explicación:** La Ciudad de México lidera como la sede con más partidos mundialistas en la historia, resultado directo de haber albergado dos ediciones completas del torneo (1970 y 1986). Le siguen ciudades como Montevideo (sede de la primera Copa del Mundo en 1930) y Guadalajara, también beneficiada por las dos ediciones mexicanas. El ranking refleja sobre todo qué países han sido anfitriones en más de una ocasión, más que un patrón relacionado con el desempeño futbolístico de esas sedes.
